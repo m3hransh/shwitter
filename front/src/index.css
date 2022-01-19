@@ -1,0 +1,18 @@
+@import url('./fonts/stylesheet.css');
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+#root{
+  height: 100%l;
+}
+@layer base {
+  input {
+    border-radius: 20px;
+    outline: none;
+    border: 2px solid rgb(0, 0, 0, 0.2);
+    text-align: center;
+    padding: .25rem;
+  }
+}
+
