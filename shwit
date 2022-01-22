@@ -1,0 +1,32 @@
+#!/bin/bash
+############################################################
+# Help                                                     #
+############################################################
+Help()
+{
+   # Display Help
+   echo "Run commands insise docker services"
+   echo
+   echo "Syntax: shwitter <service_name>"
+   echo
+}
+
+############################################################
+############################################################
+# Main program                                             #
+############################################################
+############################################################
+
+back() {
+  command docker exec shwit-graph "$@"
+}
+# front() {}
+# db() {}
+
+if declare -f "$1" > /dev/null 2>&1; then
+  "$@"
+
+else
+  echo "Function $1 not recognized">&2
+  exit 1
+fi
