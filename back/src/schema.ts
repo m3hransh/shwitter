@@ -9,7 +9,7 @@ export const schema = makeSchema({
     typegen: join(__dirname, 'nexus-typegen.ts'),
   },
   contextType: {
-    module: join(__dirname, './context.ts'),
+    module: require.resolve('./context'),
     export: 'Context',
   },
 })

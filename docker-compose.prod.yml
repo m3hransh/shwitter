@@ -1,0 +1,64 @@
+services:
+  back:
+    container_name: shwit-graph
+    build:
+      context: ./back
+      dockerfile: ./prod.Dockerfile
+    environment:
+      HOST: db
+    ports:
+      - "${PORT:-4000}:4000"
+    command: ["yarn", "start"] 
+    depends_on:
+      - db
+    networks:
+      - shwitter
+
+  migrate_db:
+    container_name: shwit-migrate
+    build:
+      context: ./back
+      dockerfile: ./Dockerfile
+    environment:
+      HOST: db
+    command: ["yarn", "prisma", "migrate", "deploy"] 
+    depends_on:
+      - db
+    networks:
+      - shwitter
+
+  db:
+    image: postgres:14.1-alpine
+    container_name: shwit-db
+    env_file:
+      - ./back/.env
+    # environment:
+    #   POSTGRES_USER: ${DATABASE_USERNAME}
+    #   POSTGRES_PASSWORD: ${DATABASE_PASSWORD}
+    #   POSTGRES_DB: ${DATABASE_NAME}
+    ports:
+      - "${DB_PORT:-5432}:5432"
+    volumes:
+      - postgres_prod:/var/lib/postgresql
+    networks:
+      - shwitter
+
+  front:
+    container_name: shwit-ui
+    build:
+      context: ./front
+      dockerfile: ./prod.Dockerfile
+    command: >
+      sh -c "yarn build"
+
+    volumes:
+      - /var/www/shwitter:/app/build
+    ports:
+      - "${FRONT_PORT:-3000}:3000"
+
+volumes:
+  postgres_prod:
+
+networks:
+  shwitter:
+    name: 'shwitter-net'
