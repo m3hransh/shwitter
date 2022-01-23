@@ -1,7 +1,7 @@
 FROM node:16-alpine
 RUN apk add --no-cache libc6-compat
 WORKDIR /app
-COPY package.json yarn.lock ./
+COPY package.json ./
 RUN yarn install --frozen-lockfile
 COPY commands.sh /scripts/commands.sh
 COPY ./prisma .env ./
