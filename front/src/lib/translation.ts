@@ -1,7 +1,7 @@
 interface Translation {
   [index: string]: {
     form: {
-      signUp: string
+      signup: string
       email: string
       name: string
       password: string
@@ -18,7 +18,7 @@ interface Translation {
 export const translation:Translation = {
   eng: {
     form: {
-      signUp: 'Sign up',
+      signup: 'Sign up',
       email: 'Email',
       name: 'Name',
       password: 'Password',
@@ -32,7 +32,7 @@ export const translation:Translation = {
   },
   ir: {
     form: {
-      signUp: 'ثبت نام',
+      signup: 'ثبت نام',
       email: 'پست الکترونیک',
       name: 'نام',
       password: 'کلمه عبور',

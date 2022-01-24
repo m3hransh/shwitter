@@ -1,10 +1,16 @@
-import { SignUp } from './components/form'
+import { BrowserRouter, Routes, Route } from 'react-router-dom'
+import Home from './pages/Home'
+import Signup from './pages/Signup'
 
 function App() {
   return (
-    <div className="bg-background-800 h-screen">
-      <SignUp />
-    </div>
+    <BrowserRouter>
+      <Routes>
+        <Route path="/" element={<Home />}>
+          <Route path="signup" element={<Signup />} />
+        </Route>
+      </Routes>
+    </BrowserRouter>
   )
 }
 
