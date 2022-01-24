@@ -50,6 +50,10 @@ export interface NexusGenScalars {
 }
 
 export interface NexusGenObjects {
+  AllUsers: { // root type
+    count: number; // Int!
+    users: NexusGenRootTypes['User'][]; // [User!]!
+  }
   AuthPayload: { // root type
     token: string; // String!
     user: NexusGenRootTypes['User']; // User!
@@ -88,6 +92,10 @@ export type NexusGenRootTypes = NexusGenObjects
 export type NexusGenAllTypes = NexusGenRootTypes & NexusGenScalars & NexusGenEnums
 
 export interface NexusGenFieldTypes {
+  AllUsers: { // field return type
+    count: number; // Int!
+    users: NexusGenRootTypes['User'][]; // [User!]!
+  }
   AuthPayload: { // field return type
     token: string; // String!
     user: NexusGenRootTypes['User']; // User!
@@ -113,6 +121,7 @@ export interface NexusGenFieldTypes {
     vote: NexusGenRootTypes['Vote'] | null; // Vote
   }
   Query: { // field return type
+    allUsers: NexusGenRootTypes['AllUsers']; // AllUsers!
     feed: NexusGenRootTypes['Feed']; // Feed!
   }
   User: { // field return type
@@ -128,6 +137,10 @@ export interface NexusGenFieldTypes {
 }
 
 export interface NexusGenFieldTypeNames {
+  AllUsers: { // field return type name
+    count: 'Int'
+    users: 'User'
+  }
   AuthPayload: { // field return type name
     token: 'String'
     user: 'User'
@@ -153,6 +166,7 @@ export interface NexusGenFieldTypeNames {
     vote: 'Vote'
   }
   Query: { // field return type name
+    allUsers: 'AllUsers'
     feed: 'Feed'
   }
   User: { // field return type name
@@ -195,6 +209,11 @@ export interface NexusGenArgTypes {
     }
   }
   Query: {
+    allUsers: { // args
+      filter?: string | null; // String
+      skip?: number | null; // Int
+      take?: number | null; // Int
+    }
     feed: { // args
       filter?: string | null; // String
       orderBy?: NexusGenInputs['LinkOrderByInput'][] | null; // [LinkOrderByInput!]
