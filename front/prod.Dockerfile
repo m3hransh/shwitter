@@ -1,6 +1,6 @@
 FROM node:16-alpine
 WORKDIR /app
-COPY package.json yarn.lock ./
+COPY package.json ./
 RUN yarn install --frozen-lockfile
 COPY . .
 COPY . /app

@@ -8,8 +8,8 @@ export interface HomeProps {
 const Home: FC<HomeProps> = () => {
   return (
     <div className="bg-background-50 h-screen">
-    <Outlet />
-  </div>
+      <Outlet />
+    </div>
   )
 }
 export default Home

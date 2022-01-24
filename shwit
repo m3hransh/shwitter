@@ -20,8 +20,12 @@ Help()
 back() {
   command docker exec shwit-graph "$@"
 }
-# front() {}
-# db() {}
+front() {
+  command docker exec shwit-ui "$@"
+}
+db() {
+  command docker exec shwit-db "$@"
+}
 
 if declare -f "$1" > /dev/null 2>&1; then
   "$@"
