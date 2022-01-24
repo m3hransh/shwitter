@@ -37,8 +37,8 @@ Following is the [C4](https://c4model.com/) of the software architecture:
 ## Project showcase
 
 ## Todo
-- [ ] Create CI/CD for the front and back
-- [ ] Signup and Login page
+- [x] Create CI/CD for the front and back
+- [x] Signup and Login page
 - [ ] User can change their profile info
 - [ ] Connection to cloudinary
 - [ ] Users can shwit
