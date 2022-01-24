@@ -13,7 +13,7 @@ const Landing: FC<LandingProps> = () => {
   return (
     <div>
       <div dir="rtl" className="flex flex-col-reverse h-screen">
-        <div className="flex flex-col-reverse gap-4 sm:items-stretch sm:flex-row h-full">
+        <div className="flex bg-background-800 flex-col-reverse gap-4 sm:items-stretch sm:flex-row h-full">
           {/* left */}
           <div className="sm:w-1/2 flex sm:text-2xl flex-grow text-lg flex-col items-center justify-center bg-primary text-white">
             {/* items-wraper */}

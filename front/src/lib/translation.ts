@@ -8,6 +8,7 @@ interface Translation {
       password: string
       passwordConf: string
       haveAccount: string
+      noAccount: string
       requiredMsg: string
       emailMsg: string
       passwordMaxMessage: string
@@ -37,6 +38,7 @@ export const translation: Translation = {
       password: 'Password',
       passwordConf: 'Confirm Password',
       haveAccount: 'Already have an account?',
+      noAccount: 'Don\'t have an account?',
       requiredMsg: 'This is required',
       emailMsg: 'Invalid email address',
       passwordMaxMessage: 'Must be 20 characters or less',
@@ -63,6 +65,7 @@ export const translation: Translation = {
       password: 'کلمه عبور',
       passwordConf: 'تایید کلمه عبور',
       haveAccount: 'قبلا ثبت نام کردم؟',
+      noAccount: 'ثبت نام نکردی؟',
       requiredMsg: 'این فیلد لازم است',
       emailMsg: 'آدرس ایمیل صحیح نیست',
       passwordMaxMessage: 'کلمه عبور باید ۲۰ کاراکتر و یا کمتر باشد',
