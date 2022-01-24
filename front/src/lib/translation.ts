@@ -2,6 +2,7 @@ interface Translation {
   [index: string]: {
     form: {
       signup: string
+      login: string
       email: string
       name: string
       password: string
@@ -12,13 +13,25 @@ interface Translation {
       passwordMaxMessage: string
       passwordConfMsg: string
     }
+    landing: {
+      mottos: {
+        first: string
+        second: string
+        third: string
+      }
+      main:{
+        first: string
+        second: string
+      }
+    }
   }
 }
 
-export const translation:Translation = {
+export const translation: Translation = {
   eng: {
     form: {
       signup: 'Sign up',
+      login: 'Log in',
       email: 'Email',
       name: 'Name',
       password: 'Password',
@@ -29,10 +42,22 @@ export const translation:Translation = {
       passwordMaxMessage: 'Must be 20 characters or less',
       passwordConfMsg: 'Password must match',
     },
+    landing: {
+      mottos: {
+        first: 'Follow your interests',
+        second: 'Hear what people are talking about',
+        third: 'Join the conversation',
+      },
+      main:{
+        first: 'Happening Now',
+        second: 'Join Shwitter Today'
+      }
+    },
   },
   ir: {
     form: {
       signup: 'ثبت نام',
+      login: 'ورود',
       email: 'پست الکترونیک',
       name: 'نام',
       password: 'کلمه عبور',
@@ -43,5 +68,16 @@ export const translation:Translation = {
       passwordMaxMessage: 'کلمه عبور باید ۲۰ کاراکتر و یا کمتر باشد',
       passwordConfMsg: 'کلمه عبور متفاوت است',
     },
+    landing: {
+      mottos: {
+        first: 'علاقه‌ها تو دنبال کن',
+        second: 'ببین بقیه چی میگن',
+        third: 'در صحبت‌ها شرکت کن',
+      },
+      main: {
+        first: 'اتفاقات همین الان',
+        second: 'امروز به شوییتر بپیوند'
+      }
+    }
   },
 }

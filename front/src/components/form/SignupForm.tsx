@@ -2,9 +2,11 @@ import { useForm } from 'react-hook-form'
 import { yupResolver } from '@hookform/resolvers/yup'
 import * as yup from 'yup'
 import { translation } from '../../lib/translation'
+import ShwitterLogo from '../../assets/silent-crow.png'
 import ErrorMessage from './ErrorMessage'
 
 import { FC, ReactElement } from 'react'
+import { Link } from 'react-router-dom'
 
 const validationSchemaGenerate = (lang: string) =>
   yup.object({
@@ -45,9 +47,11 @@ const SignupForm: FC<SignupFormProps> = () => {
   const onSubmit = (data: any) => console.log(data)
 
   return (
-    <div dir="rtl" className="bg-background-900 max-w-lg mx-auto w-3/4">
+    <div dir="rtl" className=" max-w-lg mx-auto w-3/4">
       <div className="flex flex-col items-center text-center p-8">
-        <h1 className="text-xl font-bold text-main-50">
+
+              <img src={ShwitterLogo} alt="logo" className="w-40" />
+        <h1 className="text-2xl font-bold ">
           {translation[lang].form.signup}{' '}
         </h1>
         <form
@@ -90,6 +94,12 @@ const SignupForm: FC<SignupFormProps> = () => {
             {translation[lang].form.signup}
           </button>
         </form>
+      <div className="mt-14">
+        <h4 className="font-bold">{translation[lang].form.haveAccount}</h4>
+        <Link className="text-main font-medium" to="/login">
+          {translation[lang].form.login}
+        </Link>
+      </div>
       </div>
     </div>
   )

@@ -7,7 +7,7 @@ export interface HomeProps {
 
 const Home: FC<HomeProps> = () => {
   return (
-    <div className="bg-background-800 h-screen">
+    <div className="bg-background-50 h-screen">
     <Outlet />
   </div>
   )
