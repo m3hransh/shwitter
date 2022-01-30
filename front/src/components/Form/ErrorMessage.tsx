@@ -1,7 +1,7 @@
 import { FC, ReactElement } from 'react'
 
 export interface ErrorMessageProps {
-  children: ReactElement
+  children: ReactElement | string | null |undefined
 }
 
 const ErrorMessage: FC<ErrorMessageProps> = ({ children }) => {

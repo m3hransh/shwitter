@@ -1,13 +1,13 @@
-import { useForm, SubmitHandler } from 'react-hook-form'
 import { yupResolver } from '@hookform/resolvers/yup'
-import * as yup from 'yup'
-import { translation } from '../../lib/translation'
-import ShwitterLogo from '../../assets/silent-crow.png'
-import ErrorMessage from './ErrorMessage'
-import { useMutation, gql } from '@apollo/client'
-
-import { FC, ReactElement } from 'react'
+import { FC, ReactElement, useState } from 'react'
+import { SubmitHandler, useForm } from 'react-hook-form'
 import { Link, useLocation, useNavigate } from 'react-router-dom'
+import * as yup from 'yup'
+import ShwitterLogo from '../../assets/silent-crow.png'
+import { translation } from '../../lib/translation'
+import { useAuth } from '../Auth'
+import ErrorMessage from './ErrorMessage'
+
 
 const validationSchemaGenerate = (lang: string) =>
   yup.object({
@@ -32,51 +32,40 @@ export interface SignupFormProps {
   children?: ReactElement
 }
 
-const SIGNUP_MUTATION = gql`
-mutation Signup($name:String!, $email:String!, $password:String!){
-  signup(name:$name, email:$email, password:$password){
-    token
-  }
-}
-`
-interface SignupFormValues {
-  name: string
-  email: string
-  password: string
-}
 
 const SignupForm: FC<SignupFormProps> = () => {
   const location = useLocation()
   const navigate = useNavigate()
-  // Todo: In IsAuthenticated component add state from
-  // <Navigate to="/login" state={{ from: location }} replace />;
+  const {signup, signupState} = useAuth()
+  const {loading} = signupState
+  const submitError = signupState.errors
+
   const state = location.state as { from: { pathname: string } }
   let from = state?.from?.pathname || '/'
-  const [signup] = useMutation(SIGNUP_MUTATION)
 
   // Todo: Should use context to get the langauge
   const lang = 'ir'
   const validationSchema = validationSchemaGenerate(lang)
-
+  type FormValues = yup.InferType<typeof validationSchema>
+  // Todo: I am not sure about the typing
+  // I will use 'any' for now
   const {
     register,
     handleSubmit,
     formState: { errors },
-  } = useForm<any>({
+  } = useForm<FormValues>({
     resolver: yupResolver(validationSchema),
   })
 
-  const onSubmit: SubmitHandler<SignupFormValues> = async (data) => {
-    try{
-
-    const response = await signup({
-      variables: data,
-    })
-    localStorage.setItem('token', response.data.signup.token)
-    }catch(e){
-      console.log(e)
+  const onSubmit: SubmitHandler<FormValues> = async (user) => {
+    const {data} = signupState
+    await signup(user)
+    console.log(signupState)
+    if (data){
+      console.log(data)
+      navigate(from, {replace: true})
     }
-    navigate(from, {replace: true})
+     
   }
 
   return (
@@ -110,7 +99,7 @@ const SignupForm: FC<SignupFormProps> = () => {
             dir="ltr"
             className={errors.email && 'border-red-600'}
           />
-          <ErrorMessage>{errors.password?.message}</ErrorMessage>
+          <ErrorMessage>{errors?.password?.message}</ErrorMessage>
           <input
             {...register('confirmPassword')}
             type="password"
@@ -125,6 +114,8 @@ const SignupForm: FC<SignupFormProps> = () => {
           >
             {translation[lang].form.signup}
           </button>
+          <ErrorMessage>{submitError && "Couldn't connect"}</ErrorMessage>
+          {loading && <p>Loadding</p>}
         </form>
         <div className="mt-14">
           <h4 className="font-bold">

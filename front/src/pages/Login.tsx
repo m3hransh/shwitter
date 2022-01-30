@@ -1,5 +1,5 @@
 import { FC, ReactElement } from "react"
-import LoginForm from "../components/form/LoginForm"
+import { LoginForm } from "../components/Form"
 
 export interface LoginProps {
   children?: ReactElement
