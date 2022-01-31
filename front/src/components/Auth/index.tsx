@@ -2,8 +2,8 @@ import { createContext, useContext } from 'react'
 
 export interface AuthContextType {
   user: User
-  signup: (user: Omit<User, 'id'>) => Promise<void>
-  login: (user: Omit<User, 'id' | 'name'>) => Promise<void>
+  signup: (user: Omit<User, 'id'>) => Promise<User | undefined>
+  login: (user: Omit<User, 'id' | 'name'>) => Promise<User | undefined>
   logout: () => void
   signupState: any
   loginState: any

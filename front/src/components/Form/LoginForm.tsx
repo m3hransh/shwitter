@@ -1,4 +1,4 @@
-import { useForm } from 'react-hook-form'
+import { SubmitHandler, useForm } from 'react-hook-form'
 import { yupResolver } from '@hookform/resolvers/yup'
 import * as yup from 'yup'
 import { translation } from '../../lib/translation'
@@ -6,7 +6,8 @@ import ShwitterLogo from '../../assets/silent-crow.png'
 import ErrorMessage from './ErrorMessage'
 
 import { FC, ReactElement } from 'react'
-import { Link } from 'react-router-dom'
+import { Link, useLocation, useNavigate } from 'react-router-dom'
+import { useAuth } from '../Auth'
 
 const validationSchemaGenerate = (lang: string) =>
   yup.object({
@@ -25,19 +26,33 @@ export interface LoginFormProps {
 }
 
 const LoginForm: FC<LoginFormProps> = () => {
+  const location = useLocation()
+  const navigate = useNavigate()
+  const { login, loginState } = useAuth()
+  const { loading } = loginState
+  const submitError = loginState.error
+
+  const state = location.state as { from: { pathname: string } }
+  const from = state?.from?.pathname || '/'
+
   const lang = 'ir'
   const validationSchema = validationSchemaGenerate(lang)
-
+  type FormValues = yup.InferType<typeof validationSchema>
   const {
     register,
     handleSubmit,
     formState: { errors },
-  } = useForm({
+  } = useForm<FormValues>({
     resolver: yupResolver(validationSchema),
   })
 
-  const onSubmit = (data: any) => console.log(data)
-
+  const onSubmit: SubmitHandler<FormValues> = async (loginUser) => {
+    const user = await login(loginUser)
+    console.log(user)
+    if (user?.email === loginUser.email) {
+      navigate(from, { replace: true })
+    }
+  }
   return (
     <div dir="rtl" className=" max-w-lg mx-auto w-3/4">
       <div className="flex flex-col items-center text-center p-8">
@@ -70,11 +85,11 @@ const LoginForm: FC<LoginFormProps> = () => {
           >
             {translation[lang].form.login}
           </button>
+          <ErrorMessage>{submitError && "Couldn't connect"}</ErrorMessage>
+          {loading && <p>Loadding</p>}
         </form>
         <div className="mt-14">
-          <h4 className="font-bold">
-            {translation[lang].form.noAccount}
-          </h4>
+          <h4 className="font-bold">{translation[lang].form.noAccount}</h4>
           <Link className="text-main-500 font-medium" to="/signup">
             {translation[lang].form.signup}
           </Link>

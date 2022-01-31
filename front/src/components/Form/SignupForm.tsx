@@ -8,7 +8,6 @@ import { translation } from '../../lib/translation'
 import { useAuth } from '../Auth'
 import ErrorMessage from './ErrorMessage'
 
-
 const validationSchemaGenerate = (lang: string) =>
   yup.object({
     name: yup.string().required(translation[lang].form.requiredMsg),
@@ -32,13 +31,13 @@ export interface SignupFormProps {
   children?: ReactElement
 }
 
-
 const SignupForm: FC<SignupFormProps> = () => {
   const location = useLocation()
   const navigate = useNavigate()
-  const {signup, signupState} = useAuth()
-  const {loading} = signupState
+  const { signup, signupState } = useAuth()
+  const { loading } = signupState
   const submitError = signupState.errors
+  console.log(signupState)
 
   const state = location.state as { from: { pathname: string } }
   let from = state?.from?.pathname || '/'
@@ -57,15 +56,12 @@ const SignupForm: FC<SignupFormProps> = () => {
     resolver: yupResolver(validationSchema),
   })
 
-  const onSubmit: SubmitHandler<FormValues> = async (user) => {
-    const {data} = signupState
-    await signup(user)
-    console.log(signupState)
-    if (data){
-      console.log(data)
-      navigate(from, {replace: true})
+  const onSubmit: SubmitHandler<FormValues> = async (newUser) => {
+    const user = await signup(newUser)
+    console.log(user)
+    if (user?.email === newUser.email) {
+      navigate(from, { replace: true })
     }
-     
   }
 
   return (
@@ -114,7 +110,9 @@ const SignupForm: FC<SignupFormProps> = () => {
           >
             {translation[lang].form.signup}
           </button>
-          <ErrorMessage>{submitError && "Couldn't connect"}</ErrorMessage>
+          <ErrorMessage>
+            {submitError.message && "Couldn't connect"}
+          </ErrorMessage>
           {loading && <p>Loadding</p>}
         </form>
         <div className="mt-14">
