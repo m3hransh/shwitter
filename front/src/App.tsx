@@ -15,7 +15,7 @@ import Signup from './pages/Signup'
 import Users from './pages/Users'
 
 const httpLink = new HttpLink({
-  uri: 'http://localhost:4000',
+  uri: process.env.REACT_APP_GRAPHQL_URL,
 })
 
 const authLink = setContext((_, { headers }) => {

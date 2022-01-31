@@ -3,6 +3,5 @@ dist/
 .git/
 .gitignore 
 Dockerfile
-*.env*
 *.db
  
