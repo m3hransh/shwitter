@@ -29,10 +29,9 @@ declare global {
 }
 
 export interface NexusGenInputs {
-  LinkOrderByInput: { // input type
+  ShweetOrderByInput: { // input type
+    content?: NexusGenEnums['Sort'] | null; // Sort
     createdAt?: NexusGenEnums['Sort'] | null; // Sort
-    desciption?: NexusGenEnums['Sort'] | null; // Sort
-    url?: NexusGenEnums['Sort'] | null; // Sort
   }
 }
 
@@ -60,24 +59,25 @@ export interface NexusGenObjects {
   }
   Feed: { // root type
     count: number; // Int!
-    links: NexusGenRootTypes['Link'][]; // [Link!]!
+    shweets: NexusGenRootTypes['Shweet'][]; // [Shweet!]!
   }
-  Link: { // root type
-    createdAt: NexusGenScalars['DateTime']; // DateTime!
-    description: string; // String!
-    id: number; // Int!
-    url: string; // String!
+  LikedShweet: { // root type
+    likedAt: NexusGenScalars['DateTime']; // DateTime!
+    shweetId: number; // Int!
+    userId: number; // Int!
   }
   Mutation: {};
   Query: {};
+  Shweet: { // root type
+    content: string; // String!
+    createdAt: NexusGenScalars['DateTime']; // DateTime!
+    id: number; // Int!
+    updatedAt: NexusGenScalars['DateTime']; // DateTime!
+  }
   User: { // root type
     email: string; // String!
     id: number; // Int!
     name: string; // String!
-  }
-  Vote: { // root type
-    link: NexusGenRootTypes['Link']; // Link!
-    user: NexusGenRootTypes['User']; // User!
   }
 }
 
@@ -102,37 +102,41 @@ export interface NexusGenFieldTypes {
   }
   Feed: { // field return type
     count: number; // Int!
-    links: NexusGenRootTypes['Link'][]; // [Link!]!
+    shweets: NexusGenRootTypes['Shweet'][]; // [Shweet!]!
   }
-  Link: { // field return type
-    createdAt: NexusGenScalars['DateTime']; // DateTime!
-    description: string; // String!
-    id: number; // Int!
-    postedBy: NexusGenRootTypes['User'] | null; // User
-    url: string; // String!
-    voters: NexusGenRootTypes['User'][]; // [User!]!
+  LikedShweet: { // field return type
+    likedAt: NexusGenScalars['DateTime']; // DateTime!
+    shweet: NexusGenRootTypes['Shweet'] | null; // Shweet
+    shweetId: number; // Int!
+    user: NexusGenRootTypes['User'] | null; // User
+    userId: number; // Int!
   }
   Mutation: { // field return type
-    deleteLink: NexusGenRootTypes['Link']; // Link!
+    deleteShweet: NexusGenRootTypes['Shweet']; // Shweet!
+    like: NexusGenRootTypes['LikedShweet'] | null; // LikedShweet
     login: NexusGenRootTypes['AuthPayload']; // AuthPayload!
-    post: NexusGenRootTypes['Link']; // Link!
+    shweet: NexusGenRootTypes['Shweet']; // Shweet!
     signup: NexusGenRootTypes['AuthPayload']; // AuthPayload!
-    updateLink: NexusGenRootTypes['Link']; // Link!
-    vote: NexusGenRootTypes['Vote'] | null; // Vote
+    updateShweet: NexusGenRootTypes['Shweet']; // Shweet!
   }
   Query: { // field return type
     allUsers: NexusGenRootTypes['AllUsers']; // AllUsers!
     feed: NexusGenRootTypes['Feed']; // Feed!
+    me: NexusGenRootTypes['User'] | null; // User
+  }
+  Shweet: { // field return type
+    author: NexusGenRootTypes['User'] | null; // User
+    content: string; // String!
+    createdAt: NexusGenScalars['DateTime']; // DateTime!
+    id: number; // Int!
+    likedShweet: NexusGenRootTypes['LikedShweet'][]; // [LikedShweet!]!
+    updatedAt: NexusGenScalars['DateTime']; // DateTime!
   }
   User: { // field return type
     email: string; // String!
     id: number; // Int!
-    links: NexusGenRootTypes['Link'][]; // [Link!]!
     name: string; // String!
-  }
-  Vote: { // field return type
-    link: NexusGenRootTypes['Link']; // Link!
-    user: NexusGenRootTypes['User']; // User!
+    shweets: NexusGenRootTypes['Shweet'][]; // [Shweet!]!
   }
 }
 
@@ -147,65 +151,67 @@ export interface NexusGenFieldTypeNames {
   }
   Feed: { // field return type name
     count: 'Int'
-    links: 'Link'
+    shweets: 'Shweet'
   }
-  Link: { // field return type name
-    createdAt: 'DateTime'
-    description: 'String'
-    id: 'Int'
-    postedBy: 'User'
-    url: 'String'
-    voters: 'User'
+  LikedShweet: { // field return type name
+    likedAt: 'DateTime'
+    shweet: 'Shweet'
+    shweetId: 'Int'
+    user: 'User'
+    userId: 'Int'
   }
   Mutation: { // field return type name
-    deleteLink: 'Link'
+    deleteShweet: 'Shweet'
+    like: 'LikedShweet'
     login: 'AuthPayload'
-    post: 'Link'
+    shweet: 'Shweet'
     signup: 'AuthPayload'
-    updateLink: 'Link'
-    vote: 'Vote'
+    updateShweet: 'Shweet'
   }
   Query: { // field return type name
     allUsers: 'AllUsers'
     feed: 'Feed'
+    me: 'User'
+  }
+  Shweet: { // field return type name
+    author: 'User'
+    content: 'String'
+    createdAt: 'DateTime'
+    id: 'Int'
+    likedShweet: 'LikedShweet'
+    updatedAt: 'DateTime'
   }
   User: { // field return type name
     email: 'String'
     id: 'Int'
-    links: 'Link'
     name: 'String'
-  }
-  Vote: { // field return type name
-    link: 'Link'
-    user: 'User'
+    shweets: 'Shweet'
   }
 }
 
 export interface NexusGenArgTypes {
   Mutation: {
-    deleteLink: { // args
+    deleteShweet: { // args
       id: number; // Int!
+    }
+    like: { // args
+      shweetId: number; // Int!
     }
     login: { // args
       email: string; // String!
       password: string; // String!
     }
-    post: { // args
-      description: string; // String!
-      url: string; // String!
+    shweet: { // args
+      content: string; // String!
     }
     signup: { // args
       email: string; // String!
       name: string; // String!
       password: string; // String!
     }
-    updateLink: { // args
-      description: string; // String!
+    updateShweet: { // args
+      content: string; // String!
       id: number; // Int!
-      url: string; // String!
-    }
-    vote: { // args
-      linkId: number; // Int!
     }
   }
   Query: {
@@ -216,7 +222,7 @@ export interface NexusGenArgTypes {
     }
     feed: { // args
       filter?: string | null; // String
-      orderBy?: NexusGenInputs['LinkOrderByInput'][] | null; // [LinkOrderByInput!]
+      orderBy?: NexusGenInputs['ShweetOrderByInput'][] | null; // [ShweetOrderByInput!]
       skip?: number | null; // Int
       take?: number | null; // Int
     }

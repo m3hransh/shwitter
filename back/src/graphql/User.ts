@@ -6,14 +6,14 @@ export const User = objectType({
     t.nonNull.int('id')
     t.nonNull.string('name')
     t.nonNull.string('email')
-    t.nonNull.list.nonNull.field('links', {
-      type: 'Link',
+    t.nonNull.list.nonNull.field('shweets', {
+      type: 'Shweet',
       resolve(root, _args, ctx) {
         return ctx.prisma.user
           .findUnique({
             where: { id: root.id },
           })
-          .links()
+          .shweets()
       },
     })
   },
@@ -53,12 +53,23 @@ export const UserQuery = extendType({
           take: args?.take as number | undefined,
         })
 
-        const count = await ctx.prisma.user.count({ where })
+        const count = await ctx.prisma.user.count()
 
         return {
           users,
           count,
         }
+      },
+    })
+    t.field('me', {
+      type: 'User',
+      resolve(_root, _args, ctx) {
+        const { userId } = ctx
+        return ctx.prisma.user.findUnique({
+          where: {
+            id: userId,
+          },
+        })
       },
     })
   },

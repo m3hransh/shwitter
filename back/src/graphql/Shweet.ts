@@ -12,27 +12,27 @@ import {
 } from 'nexus'
 import { NexusGenObjects } from '../nexus-typegen'
 
-export const Link = objectType({
-  name: 'Link',
+export const Shweet = objectType({
+  name: 'Shweet',
   definition(t) {
     t.nonNull.int('id')
-    t.nonNull.string('description')
-    t.nonNull.string('url')
     t.nonNull.dateTime('createdAt')
-    t.field('postedBy', {
+    t.nonNull.dateTime('updatedAt')
+    t.nonNull.string('content')
+    t.field('author', {
       type: 'User',
       resolve(root, _args, ctx) {
-        return ctx.prisma.link
+        return ctx.prisma.shweet
           .findUnique({ where: { id: root.id } })
-          .postedBy()
+          .author()
       },
     })
-    t.nonNull.list.nonNull.field('voters', {
-      type: 'User',
+    t.nonNull.list.nonNull.field('likedShweet', {
+      type: 'LikedShweet',
       resolve(root, _args, ctx) {
-        return ctx.prisma.link
-          .findUnique({ where: { id: root.id } })
-          .voters()
+        return ctx.prisma.shweet.findUnique({
+          where: { id: root.id },
+        }).likedShweets()
       },
     })
   },
@@ -42,11 +42,11 @@ export const Sort = enumType({
   name: 'Sort',
   members: ['asc', 'desc'],
 })
-export const LinkOrderByInput = inputObjectType({
-  name: 'LinkOrderByInput',
+
+export const ShweetOrderByInput = inputObjectType({
+  name: 'ShweetOrderByInput',
   definition(t) {
-    t.field('desciption', { type: Sort })
-    t.field('url', { type: Sort })
+    t.field('content', { type: Sort })
     t.field('createdAt', { type: Sort })
   },
 })
@@ -54,12 +54,12 @@ export const LinkOrderByInput = inputObjectType({
 export const Feed = objectType({
   name: 'Feed',
   definition(t) {
-    t.nonNull.list.nonNull.field('links', {type: Link })
+    t.nonNull.list.nonNull.field('shweets', { type: Shweet })
     t.nonNull.int('count')
-  }
+  },
 })
 
-export const LinkQuery = extendType({
+export const ShweetQuery = extendType({
   type: 'Query',
   definition(t) {
     t.nonNull.field('feed', {
@@ -68,31 +68,26 @@ export const LinkQuery = extendType({
         filter: stringArg(),
         skip: intArg(),
         take: intArg(),
-        orderBy: arg({ type: list(nonNull(LinkOrderByInput)) }),
+        orderBy: arg({ type: list(nonNull(ShweetOrderByInput)) }),
       },
       async resolve(_root, args, ctx, _info) {
         const where = args.filter
-          ? {
-              OR: [
-                { description: { contains: args.filter } },
-                { url: { contains: args.filter } },
-              ],
-            }
+          ? { content: { contains: args.filter } }
           : {}
 
-        const links = await ctx.prisma.link.findMany({
+        const shweets = await ctx.prisma.shweet.findMany({
           where,
           skip: args?.skip as number | undefined,
           take: args?.take as number | undefined,
           orderBy: args?.orderBy as
-            | Prisma.Enumerable<Prisma.LinkOrderByWithRelationInput>
+            | Prisma.Enumerable<Prisma.ShweetOrderByWithAggregationInput>
             | undefined,
         })
 
-        const count = await ctx.prisma.link.count({ where })
+        const count = await ctx.prisma.shweet.count({ where })
 
         return {
-          links,
+          shweets,
           count,
         }
       },
@@ -100,54 +95,51 @@ export const LinkQuery = extendType({
   },
 })
 
-export const LinkMutation = extendType({
+export const ShweetMutation = extendType({
   type: 'Mutation',
   definition(t) {
-    t.nonNull.field('post', {
-      type: 'Link',
+    t.nonNull.field('shweet', {
+      type: 'Shweet',
       args: {
-        description: nonNull(stringArg()),
-        url: nonNull(stringArg()),
+        content: nonNull(stringArg()),
       },
 
       resolve(_root, args, ctx) {
-        const { description, url } = args
+        const { content } = args
         const { userId } = ctx
-
+        // TODO: use protected shield instead
         if (!userId) {
           throw new Error('Cannot post without logging in.')
         }
 
-        const newLink = ctx.prisma.link.create({
+        const newShweet = ctx.prisma.shweet.create({
           data: {
-            description,
-            url,
-            postedBy: { connect: { id: userId } },
+            content,
+            author: { connect: { id: userId } },
           },
         })
 
-        return newLink
+        return newShweet
       },
     })
-    t.nonNull.field('updateLink', {
-      type: 'Link',
+
+    t.nonNull.field('updateShweet', {
+      type: 'Shweet',
       args: {
         id: nonNull(intArg()),
-        url: nonNull(stringArg()),
-        description: nonNull(stringArg()),
+        content: nonNull(stringArg()),
       },
       async resolve(_root, args, ctx) {
-        const { id, description, url } = args
+        const { id, content } = args
 
-        let updatedLink: NexusGenObjects['Link']
+        let updatedShweet: NexusGenObjects['Shweet']
         try {
-          updatedLink = await ctx.prisma.link.update({
+          updatedShweet = await ctx.prisma.shweet.update({
             where: {
               id,
             },
             data: {
-              description,
-              url,
+              content,
             },
           })
         } catch (e) {
@@ -161,19 +153,19 @@ export const LinkMutation = extendType({
           else throw e
         }
 
-        return updatedLink
+        return updatedShweet
       },
     }),
-      t.nonNull.field('deleteLink', {
-        type: 'Link',
+      t.nonNull.field('deleteShweet', {
+        type: 'Shweet',
         args: {
           id: nonNull(intArg()),
         },
         async resolve(_root, args, ctx) {
           const { id } = args
-          let deletedLink: NexusGenObjects['Link']
+          let deletedShweet: NexusGenObjects['Shweet']
           try {
-            deletedLink = await ctx.prisma.link.delete({
+            deletedShweet = await ctx.prisma.shweet.delete({
               where: {
                 id,
               },
@@ -188,7 +180,7 @@ export const LinkMutation = extendType({
               throw new Error(`Could not find the post with id: ${id}`)
             else throw e
           }
-          return deletedLink
+          return deletedShweet
         },
       })
   },

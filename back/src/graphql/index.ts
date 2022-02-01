@@ -1,5 +1,5 @@
-export * from './Link'
+export * from './Shweet'
 export * from './User'
 export * from './Auth'
-export * from './Vote'
+export * from './LikedShweet'
 export * from './scalars/Date'

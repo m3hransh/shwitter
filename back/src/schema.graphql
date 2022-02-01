@@ -21,36 +21,44 @@ scalar DateTime
 
 type Feed {
   count: Int!
-  links: [Link!]!
+  shweets: [Shweet!]!
 }
 
-type Link {
-  createdAt: DateTime!
-  description: String!
-  id: Int!
-  postedBy: User
-  url: String!
-  voters: [User!]!
-}
-
-input LinkOrderByInput {
-  createdAt: Sort
-  desciption: Sort
-  url: Sort
+type LikedShweet {
+  likedAt: DateTime!
+  shweet: Shweet
+  shweetId: Int!
+  user: User
+  userId: Int!
 }
 
 type Mutation {
-  deleteLink(id: Int!): Link!
+  deleteShweet(id: Int!): Shweet!
+  like(shweetId: Int!): LikedShweet
   login(email: String!, password: String!): AuthPayload!
-  post(description: String!, url: String!): Link!
+  shweet(content: String!): Shweet!
   signup(email: String!, name: String!, password: String!): AuthPayload!
-  updateLink(description: String!, id: Int!, url: String!): Link!
-  vote(linkId: Int!): Vote
+  updateShweet(content: String!, id: Int!): Shweet!
 }
 
 type Query {
   allUsers(filter: String, skip: Int, take: Int): AllUsers!
-  feed(filter: String, orderBy: [LinkOrderByInput!], skip: Int, take: Int): Feed!
+  feed(filter: String, orderBy: [ShweetOrderByInput!], skip: Int, take: Int): Feed!
+  me: User
+}
+
+type Shweet {
+  author: User
+  content: String!
+  createdAt: DateTime!
+  id: Int!
+  likedShweet: [LikedShweet!]!
+  updatedAt: DateTime!
+}
+
+input ShweetOrderByInput {
+  content: Sort
+  createdAt: Sort
 }
 
 enum Sort {
@@ -61,11 +69,6 @@ enum Sort {
 type User {
   email: String!
   id: Int!
-  links: [Link!]!
   name: String!
-}
-
-type Vote {
-  link: Link!
-  user: User!
+  shweets: [Shweet!]!
 }
