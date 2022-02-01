@@ -1,0 +1,2 @@
+-- AlterTable
+ALTER TABLE "LikedShweet" ALTER COLUMN "likedAt" SET DEFAULT CURRENT_TIMESTAMP;

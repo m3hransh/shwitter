@@ -6,26 +6,46 @@ generator client {
 }
 
 datasource db {
-    provider = "postgresql"
-    url      = env("DATABASE_URL")
-
+  provider = "postgresql"
+  url      = env("DATABASE_URL")
 }
 
-model Link {
-    id            Int       @id @default(autoincrement())
-    createdAt     DateTime  @default(now())
-    description   String
-    url           String
-    postedBy      User?     @relation("PostedBy", fields: [postedById], references: [id])
-    postedById    Int?
-    voters        User[]    @relation("Votes")
-  }
+model Shweet {
+  id           Int           @id @default(autoincrement())
+  createdAt    DateTime      @default(now())
+  updatedAt    DateTime      @default(now())
+  content      String
+  author       User?         @relation("Author", fields: [authorId], references: [id])
+  authorId     Int
+  likedShweets LikedShweet[]
+}
 
 model User {
-    id            Int       @id @default(autoincrement())
-    name          String
-    email         String    @unique
-    password      String    
-    links         Link[] @relation("PostedBy")
-    votes         Link[] @relation("Votes")
-  }
+  id           Int           @id @default(autoincrement())
+  name         String
+  email        String        @unique
+  password     String
+  shweets      Shweet[]      @relation("Author")
+  likedShweets LikedShweet[]
+  profile      Profile?
+}
+
+model Profile {
+  userId    Int    @id
+  avatar    String
+  bio       String
+  createdAt String
+  location  String
+  website   String
+  user      User   @relation(fields: [userId], references: [id])
+}
+
+model LikedShweet {
+  shweet   Shweet   @relation(fields: [shweetId], references: [id])
+  shweetId Int
+  user     User     @relation(fields: [userId], references: [id])
+  userId   Int
+  likedAt  DateTime @default(now())
+
+  @@id([shweetId, userId])
+}
