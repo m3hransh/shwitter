@@ -28,14 +28,14 @@ export interface LoginFormProps {
 const LoginForm: FC<LoginFormProps> = () => {
   const location = useLocation()
   const navigate = useNavigate()
-  const { login, loginState } = useAuth()
-  const { loading } = loginState
-  const submitError = loginState.error
+  const { login, state } = useAuth()
 
-  const state = location.state as { from: { pathname: string } }
-  const from = state?.from?.pathname || '/'
+  const locState = location.state as { from: { pathname: string } }
+  const from = locState?.from?.pathname || '/'
 
+  // TODO: should use context to get the language
   const lang = 'ir'
+
   const validationSchema = validationSchemaGenerate(lang)
   type FormValues = yup.InferType<typeof validationSchema>
   const {
@@ -85,8 +85,10 @@ const LoginForm: FC<LoginFormProps> = () => {
           >
             {translation[lang].form.login}
           </button>
-          <ErrorMessage>{submitError && "Couldn't connect"}</ErrorMessage>
-          {loading && <p>Loadding</p>}
+          <ErrorMessage>
+            {state?.error?.message && "Couldn't connect"}
+          </ErrorMessage>
+          {state?.loading && <p>Loadding</p>}
         </form>
         <div className="mt-14">
           <h4 className="font-bold">{translation[lang].form.noAccount}</h4>

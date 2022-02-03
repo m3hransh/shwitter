@@ -1,18 +1,30 @@
+import { MutationResult, QueryResult } from '@apollo/client'
 import { createContext, useContext } from 'react'
 
 export interface AuthContextType {
   user: User
   signup: (user: Omit<User, 'id'>) => Promise<User | undefined>
   login: (user: Omit<User, 'id' | 'name'>) => Promise<User | undefined>
+  getCurrentUser: () => Promise<User | undefined>
   logout: () => void
-  signupState: any
-  loginState: any
+  state: State
 }
+
 export interface User {
   id: number
   name: string
   email: string
 }
+
+type initialState = {
+  called?: boolean
+  data?: any
+  error?: any
+  loading?: any
+}
+
+export type State = MutationResult | QueryResult | initialState
+
 export interface UserData {
   token: string
   user: User

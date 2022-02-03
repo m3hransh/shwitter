@@ -1,4 +1,4 @@
-import { FC, ReactElement } from 'react'
+import { FC, ReactElement, useEffect, useState } from 'react'
 import { Navigate, useLocation } from 'react-router-dom'
 import { useAuth } from '.'
 
@@ -7,16 +7,22 @@ export interface RequiredAuthProps {
 }
 
 const RequiredAuth: FC<RequiredAuthProps> = ({ children }) => {
-  const auth = useAuth()
+  const { user, getCurrentUser, state } = useAuth()
   const location = useLocation()
+  const [called, setCalled] = useState(false)
 
-  if (!auth.user) {
-    // Redirect them to the login page, but save the current location
+  useEffect(() => {
+    console.log('useEffect')
+    getCurrentUser()
+      .then(() => setCalled(true))
+      .catch(console.error)
+  }, [])
+  console.log(state)
+  if (!called || state.loading) return <p>Loading...</p>
+  if (state.error) return <p>`Errror: ${state.error.message}` </p>
 
-    return <Navigate to="/landing" state={{ from: location }} replace />
-  }
-
-  return children
+  if (user) return children
+  else return <Navigate to="/landing" state={{ from: location }} replace />
 }
 
 export default RequiredAuth

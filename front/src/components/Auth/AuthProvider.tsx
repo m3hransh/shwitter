@@ -1,6 +1,6 @@
-import { gql, useMutation } from '@apollo/client'
+import { gql, useLazyQuery, useMutation } from '@apollo/client'
 import { FC, ReactElement, useState } from 'react'
-import { AuthContext, User, UserData } from './index'
+import { AuthContext, State, User, UserData } from './index'
 
 export interface AuthProviderProps {
   children?: ReactElement
@@ -30,17 +30,32 @@ const LOGIN_MUTATION = gql`
     }
   }
 `
+const ME = gql`
+  query Me {
+    me {
+      id
+      name
+      email
+    }
+  }
+`
+const initialState: State = {
+  called: false,
+}
 const AuthProvider: FC<AuthProviderProps> = ({ children }) => {
   const [user, setUser] = useState<User>(null!)
+  const [state, setState] = useState<State>(initialState)
 
   const [signupMutate, signupState] =
     useMutation<{ signup: UserData }>(SIGNUP_MUTATION)
+
   const signup = async (newUser: Omit<User, 'id'>) => {
     const { data, errors } = await signupMutate({
       variables: newUser,
     })
-    //
-    console.log(data?.signup.token)
+    // set the state so the consumer can access it
+    setState(signupState)
+
     if (data) {
       localStorage.setItem('token', data.signup.token)
       setUser(data.signup.user)
@@ -54,11 +69,13 @@ const AuthProvider: FC<AuthProviderProps> = ({ children }) => {
 
   const [loginMutate, loginState] =
     useMutation<{ login: UserData }>(LOGIN_MUTATION)
+
   const login = async (newUser: Omit<User, 'id' | 'name'>) => {
     const { data, errors } = await loginMutate({
       variables: newUser,
     })
-    //
+    setState(loginState)
+
     if (data) {
       localStorage.setItem('token', data.login.token)
       setUser(data.login.user)
@@ -69,12 +86,25 @@ const AuthProvider: FC<AuthProviderProps> = ({ children }) => {
     }
     return data?.login.user
   }
+
+  const [meQuery, meState] = useLazyQuery<{ me: User }>(ME)
+
+  const getCurrentUser = async () => {
+    const { data } = await meQuery()
+    setState(meState)
+
+    if (data) {
+      setUser(data.me)
+    }
+    return data?.me
+  }
+
   const logout = () => {
     localStorage.removeItem('token')
     setUser(null!)
   }
 
-  const value = { user, signup, signupState, login, loginState, logout }
+  const value = { user, signup, login, logout, getCurrentUser, state }
   return (
     <AuthContext.Provider value={value}>{children}</AuthContext.Provider>
   )
