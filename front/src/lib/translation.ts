@@ -25,6 +25,14 @@ interface Translation {
         second: string
       }
     }
+    sideNav: {
+      home: string
+      profile: string
+      messages: string
+      notifications: string
+      more: string
+      shweet: string
+    }
   }
 }
 
@@ -55,6 +63,14 @@ export const translation: Translation = {
         second: 'Join Shwitter Today'
       }
     },
+    sideNav: {
+      home: 'Home',
+      profile: 'Profile',
+      messages: 'Messages',
+      notifications: 'Notifications',
+      more: 'More',
+      shweet: 'Shweet'
+    }
   },
   ir: {
     form: {
@@ -81,6 +97,14 @@ export const translation: Translation = {
         first: 'اتفاقات همین الان',
         second: 'امروز به شوییتر بپیوند'
       }
+    },
+    sideNav: {
+      home: 'خانه',
+      profile: 'پروفایل',
+      messages: 'پیام‌ها',
+      notifications: 'خبر',
+      more: 'بیشتر',
+      shweet: 'شوییت'
     }
   },
 }
