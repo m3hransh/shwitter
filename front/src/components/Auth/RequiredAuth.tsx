@@ -12,10 +12,11 @@ const RequiredAuth: FC<RequiredAuthProps> = ({ children }) => {
   const [called, setCalled] = useState(false)
 
   useEffect(() => {
+    console.log('UseEffect')
     getCurrentUser()
-      .then()
-      .catch(console.error)
-    setCalled(true)
+      .catch(() =>console.error)
+      .finally(()=> setCalled(true))
+    
   }, [])
 
   if (!called || state.loading) return <p>Loading...</p>
