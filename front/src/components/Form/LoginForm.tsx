@@ -86,7 +86,7 @@ const LoginForm: FC<LoginFormProps> = () => {
             {translation[lang].form.login}
           </button>
           <ErrorMessage>
-            {state?.error?.message && "Couldn't connect"}
+            {state?.error && "Couldn't connect"}
           </ErrorMessage>
           {state?.loading && <p>Loadding</p>}
         </form>

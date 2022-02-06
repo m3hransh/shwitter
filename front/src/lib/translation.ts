@@ -1,3 +1,5 @@
+import SearchBox from "../components/SearchBox";
+
 interface Translation {
   [index: string]: {
     form: {
@@ -32,6 +34,12 @@ interface Translation {
       notifications: string
       more: string
       shweet: string
+    }
+    searchBox: {
+      search: string
+      }
+    trends: {
+      title: string
     }
   }
 }
@@ -70,7 +78,13 @@ export const translation: Translation = {
       notifications: 'Notifications',
       more: 'More',
       shweet: 'Shweet'
-    }
+    },
+    searchBox: {
+      search: 'Search Shwitter',
+    },
+    trends: {
+      title: 'Trends for you'
+  }
   },
   ir: {
     form: {
@@ -105,6 +119,12 @@ export const translation: Translation = {
       notifications: 'خبر',
       more: 'بیشتر',
       shweet: 'شوییت'
-    }
+    },
+    searchBox: {
+      search: 'جستجو',
+    },
+    trends: {
+      title: 'اتفاقات داغ'
+  }
   },
 }

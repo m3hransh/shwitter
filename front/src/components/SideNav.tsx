@@ -7,7 +7,7 @@ import {
   IoPersonOutline,
 } from 'react-icons/io5';
 import { Link } from 'react-router-dom';
-import favicon from '../assets/silent-crow.png';
+import favicon from '../assets/shwitter-logo.png';
 import {translation} from '../lib/translation'
 import Logout from './Logout';
 import Modal from './Modal';
@@ -27,7 +27,7 @@ const SideNav: FC = () => {
     <div className="ml-auto flex h-screen flex-col pt-4 p-2 lg:text-lg ">
       <div className="flex flex-col space-y-4 items-center lg:items-start">
         <Link to="/users">
-          <img src={favicon} alt="logo" className="w-28 h-12" />
+          <img src={favicon} alt="logo" className="w-12 h-12 mx-3" />
         </Link>
         <Link to="/" className="rounded-3xl p-2 hover:bg-accent">
           <h2>

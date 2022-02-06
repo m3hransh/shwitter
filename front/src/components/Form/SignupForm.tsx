@@ -54,7 +54,6 @@ const SignupForm: FC<SignupFormProps> = () => {
 
   const onSubmit: SubmitHandler<FormValues> = async (newUser) => {
     const user = await signup(newUser)
-    console.log(user)
     if (user?.email === newUser.email) {
       navigate(from, { replace: true })
     }
@@ -107,7 +106,7 @@ const SignupForm: FC<SignupFormProps> = () => {
             {translation[lang].form.signup}
           </button>
           <ErrorMessage>
-            {state?.error?.message && "Couldn't connect"}
+            {state?.error && "Couldn't connect"}
           </ErrorMessage>
           {state?.loading && <p>Loadding</p>}
         </form>
