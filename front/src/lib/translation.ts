@@ -1,5 +1,3 @@
-import SearchBox from "../components/SearchBox";
-
 interface Translation {
   [index: string]: {
     form: {
@@ -47,6 +45,10 @@ interface Translation {
     tweet: {
       placeholder: string
       submit: string
+    }
+    logout: {
+      exit: string 
+      addAccount: string
     }
   }
 }
@@ -107,7 +109,11 @@ export const translation: Translation = {
     tweet: {
       placeholder: 'What\'s happening',
       submit: 'Shweet'
-    }
+    },
+    logout: {
+      exit: 'Log out',
+      addAccount: 'Add an existing account'
+  }
   },
   ir: {
     form: {
@@ -139,7 +145,7 @@ export const translation: Translation = {
       home: 'خانه',
       profile: 'پروفایل',
       messages: 'پیام‌ها',
-      notifications: 'خبر',
+      notifications: 'اخبار',
       more: 'بیشتر',
       shweet: 'شوییت'
     },
@@ -155,6 +161,10 @@ export const translation: Translation = {
     tweet: {
       placeholder: 'چه خبره؟',
       submit: 'شوییت',
-    }
+    },
+    logout: {
+      exit: 'خروج',
+      addAccount: 'اضافه کردن کاربر جدید'
+  }
   },
 }
