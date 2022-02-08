@@ -45,6 +45,7 @@ interface Translation {
     tweet: {
       placeholder: string
       submit: string
+      sending: string
     }
     logout: {
       exit: string 
@@ -108,7 +109,8 @@ export const translation: Translation = {
   },
     tweet: {
       placeholder: 'What\'s happening',
-      submit: 'Shweet'
+      submit: 'Shweet',
+      sending: 'Sending...'
     },
     logout: {
       exit: 'Log out',
@@ -161,6 +163,7 @@ export const translation: Translation = {
     tweet: {
       placeholder: 'چه خبره؟',
       submit: 'شوییت',
+      sending: 'ارسال...'
     },
     logout: {
       exit: 'خروج',

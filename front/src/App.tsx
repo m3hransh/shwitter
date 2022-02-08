@@ -3,8 +3,10 @@ import {
   ApolloProvider,
   HttpLink,
   InMemoryCache,
+  from
 } from '@apollo/client'
 import { setContext } from '@apollo/client/link/context'
+import { onError } from "@apollo/client/link/error";
 import { BrowserRouter, Route, Routes } from 'react-router-dom'
 import { RequiredAuth, AuthProvider } from './components/Auth'
 import Home from './pages/Home'
@@ -29,6 +31,18 @@ const httpLink = new HttpLink({
   uri: GRAPHQL_URL,
 })
 
+const errorLink = onError(({ graphQLErrors, networkError }) => {
+  if (graphQLErrors)
+    graphQLErrors.forEach(({ message, locations, path }) =>
+      console.log(
+        `[GraphQL error]: Message: ${message}, Location: ${locations}, Path: ${path}`,
+      ),
+    );
+
+  if (networkError) console.log(`[Network error]: ${networkError}`);
+});
+
+
 const authLink = setContext((_, { headers }) => {
   // get the authentication token from local storage if it exists
   const token = localStorage.getItem('token')
@@ -42,7 +56,7 @@ const authLink = setContext((_, { headers }) => {
 })
 
 const client = new ApolloClient({
-  link: authLink.concat(httpLink),
+  link:from([errorLink, authLink, httpLink]),
   cache: new InMemoryCache(),
 })
 
