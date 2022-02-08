@@ -11,11 +11,9 @@ export interface LandingProps {
 const Landing: FC<LandingProps> = () => {
   const lang = 'ir'
   return (
-    <div>
-      <div dir="rtl" className="flex flex-col-reverse h-screen">
-        <div className="flex bg-background-800 flex-col-reverse gap-4 sm:items-stretch sm:flex-row h-full">
+        <div dir={'rtl'} className="flex bg-background-800 gap-4 h-full">
           {/* left */}
-          <div className="sm:w-1/2 flex sm:text-2xl flex-grow text-lg flex-col items-center justify-center bg-primary text-white">
+          <div className="md:w-1/2 hidden md:flex sm:text-2xl flex-grow text-lg flex-col items-center justify-center bg-primary text-white">
             {/* items-wraper */}
             <div className=" flex flex-col space-y-5 w-3/5">
               <div>
@@ -33,7 +31,7 @@ const Landing: FC<LandingProps> = () => {
             </div>
           </div>
           {/* center */}
-          <div className="sm:w-1/2 bg-background-100 flex flex-col flex-none items-center justify-center">
+          <div className="md:w-1/2 w-full h-full bg-background-100 flex flex-col flex-none items-center justify-center">
             <div className="w-3/5">
               <img src={ShwitterLogo} alt="logo" className="w-40" />
               <h1 className="text-3xl font-bold my-4">{translation[lang].landing.main.first}</h1>
@@ -59,8 +57,6 @@ const Landing: FC<LandingProps> = () => {
             </div>
           </div>
         </div>
-      </div>
-    </div>
   )
 }
 export default Landing

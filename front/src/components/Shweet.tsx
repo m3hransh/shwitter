@@ -2,7 +2,7 @@ import { yupResolver } from '@hookform/resolvers/yup'
 import { SubmitHandler, useForm } from 'react-hook-form'
 import * as yup from 'yup'
 import cn from 'classnames'
-import { useCallback, useState } from 'react'
+import { FC, ReactElement, useCallback, useState } from 'react'
 import { translation } from '../lib/translation'
 import { IoPersonCircleOutline } from 'react-icons/io5'
 import ErrorMessage from './Form/ErrorMessage'
@@ -32,8 +32,13 @@ const validationSchema = yup.object({
     .min(1, 'Must be more than 1 character')
     .max(256, 'Must be less than 256 characters'),
 })
+export interface ShweetProps{
+  children?: ReactElement
+  className?: string
+  
+}
 
-const Shweet = () => {
+const Shweet: FC<ShweetProps> = ({className}) => {
   // TODO: use context for the language
   const lang = 'ir'
 
@@ -70,7 +75,7 @@ const Shweet = () => {
 
   if (error) console.log(error.message)
   return (
-    <>
+    <div className={className}>
       <form
         className="w-full flex flex-col space-y-1 mt-5 p-3"
         onSubmit={handleSubmit(onSubmit)}
@@ -109,7 +114,7 @@ const Shweet = () => {
           </button>
         </div>
       </form>
-    </>
+    </div>
   )
 }
 export default Shweet
