@@ -18,7 +18,6 @@ const Logout: FC<LogoutProps> = ({ className }) => {
   const [tooltip, setTooltip] = useState(false)
   //TODO: use context for the language
   const lang = 'ir'
-  
 
   return (
     <>
@@ -26,13 +25,13 @@ const Logout: FC<LogoutProps> = ({ className }) => {
         <div className="relative flex flex-col items-center  w-full">
           <Transition
             show={tooltip}
-        enter="transition-opacity duration-150"
-        enterFrom="opacity-0"
-        enterTo="opacity-100"
-        leave="transition-opacity duration-150"
-        leaveFrom="opacity-100"
-        leaveTo="opacity-0"
-      >
+            enter="transition-opacity duration-150"
+            enterFrom="opacity-0"
+            enterTo="opacity-100"
+            leave="transition-opacity duration-150"
+            leaveFrom="opacity-100"
+            leaveTo="opacity-0"
+          >
             <div
               role="tooltip"
               className="relative z-20 flex flex-col mb-2 bg-background-600 transition-all duration-700 ease-in-out  shadow-lg rounded-2xl"
@@ -74,7 +73,7 @@ const Logout: FC<LogoutProps> = ({ className }) => {
                   </g>
                 </g>
               </svg>
-              <div className="mb-4">
+              <div className="mb-4 text-main-50">
                 <div className="flex p-4 items-center">
                   {/* {data?.me.profile && data?.me.profile.avatar ? ( */}
                   {/*   <img */}
@@ -112,7 +111,7 @@ const Logout: FC<LogoutProps> = ({ className }) => {
             </div>
           </Transition>
           <button
-            className="flex flex-row hover:bg-background-700 rounded-full p-2 items-center w-full justify-start"
+            className="flex flex-row dark:hover:bg-background-700 hover:bg-background-100 rounded-full p-2 items-center w-full justify-start"
             onClick={() => setTooltip(!tooltip)}
           >
             {/* {data?.me.profile && data?.me.profile.avatar ? ( */}

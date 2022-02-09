@@ -41,14 +41,14 @@ export interface ShweetProps{
 const Shweet: FC<ShweetProps> = ({className}) => {
   // TODO: use context for the language
   const lang = 'ir'
-
+  const defaultPlaceholder = translation[lang].tweet.placeholder
   const [content, setContent] = useState(
-    translation[lang].tweet.placeholder,
+   defaultPlaceholder 
   )
   const [update, updateState] = useState(0)
   const forceUpdate = useCallback(() => updateState(value => value+1), [])
 
-  const disabled = content.length < 1
+  const disabled = content === defaultPlaceholder || content.length < 1
   const [shweet, { loading, error }] = useMutation(SHWEET_MUTATION, {
     refetchQueries: [{ query: FEED_QUERY }],
   })
@@ -82,10 +82,10 @@ const Shweet: FC<ShweetProps> = ({className}) => {
       >
         <div className="flex items-baseline">
           <div className="flex-grow-0">
-            <IoPersonCircleOutline className="inline w-14 h-14 text-main-50" />
+            <IoPersonCircleOutline className="inline w-14 h-14 dark:text-main-50" />
           </div>
           <ShweetInput
-            className="flex-grow bg-transparent text-main-400 text-xl placeholder-main-300 focus:outline-0"
+            className="flex-grow bg-transparent text-xl placeholder-main-300 focus:outline-0"
             key={update}
             value={content}
             onChange={handleOnChange}

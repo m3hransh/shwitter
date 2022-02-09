@@ -18,26 +18,28 @@ const Home: FC<HomeProps> = () => {
   const elements = translation[lang].home
 
   return (
-    <div dir="rtl" className="bg-background-800">
+    <div dir="rtl" className="bg-background-50 dark:bg-background-900">
       <div className=" md:max-w-6xl max-w-2xl mx-auto flex flex-col-reverse sm:flex-row h-screen overflow-hidden">
-        <div className="lg:w-2/12 text-main-50 hidden sm:block">
+        <div className="lg:w-2/12 dark:text-main-50 hidden sm:block">
           <SideNav />
         </div>
         <MobileNav className="block sm:hidden" />
-        <div className="grow relative sm:border-x sm:border-background-600 flex flex-col overflow-y-auto text-main-50">
+        <div className="grow relative sm:border-x dark:sm:border-background-600 flex flex-col overflow-hidden dark:text-main-50">
           <div
             className={cn(
               'text-xl flex items-center gap-3 sticky top-0  w-full',
-              'bg-background-800 backdrop-blur-lg bg-opacity-75',
-              'font-bold p-2 sm:p-4',
+              'dark:bg-background-800 backdrop-blur-lg bg-opacity-75',
+              'bg-background-100 font-bold p-2 sm:p-4',
             )}
           >
             <IoPersonCircleOutline className="inline sm:hidden w-12 h-12 " />
             {elements.title}
           </div>
-          <div className="">
+          <div className={cn("overflow-y-auto",
+            "sm:scrollbar-thin scrollbar-thumb-background-600 scrollbar-track-background-300 scrollbar-thumb-rounded-full scrollbar-track-rounded-full"
+          )}>
             <Shweet className="hidden sm:block" />
-            <div className="bottom-0 h-px bg-background-600" />
+            <div className="bottom-0 h-px bg-background-200 dark:bg-background-600" />
             {/* Tweets */}
             <AllTweets className="mt-5" />
           </div>

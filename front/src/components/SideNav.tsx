@@ -28,13 +28,13 @@ const SideNav: FC = () => {
         <Link to="/users">
           <img src={favicon} alt="logo" className="w-12 h-12 mx-3" />
         </Link>
-        <Link to="/" className="rounded-3xl p-2 hover:bg-accent">
+        <Link to="/" className="rounded-3xl p-2 dark:hover:bg-background-600 hover:bg-background-100">
           <h2>
             <IoHomeOutline className="inline text-2xl mx-3" />
             <span className="hidden lg:inline-block">{content.home}</span>
           </h2>
         </Link>
-        <Link to="/profile" className="rounded-3xl p-2 hover:bg-accent">
+        <Link to="/profile" className="rounded-3xl p-2 hover:bg-background-100 dark:hover:bg-background-600">
           <h2>
             <IoPersonOutline className="inline text-2xl mx-3" />
             <span className="hidden lg:inline-block">
@@ -42,7 +42,7 @@ const SideNav: FC = () => {
             </span>
           </h2>
         </Link>
-        <Link to="#" className="rounded-3xl p-2 hover:bg-accent">
+        <Link to="#" className="rounded-3xl p-2 dark:hover:bg-background-600 hover:bg-background-100">
           <h2>
             <IoMailOutline className="inline text-2xl mx-3" />
             <span className="hidden lg:inline-block">
@@ -50,7 +50,7 @@ const SideNav: FC = () => {
             </span>
           </h2>
         </Link>
-        <Link to="#" className="rounded-3xl p-2 hover:bg-accent">
+        <Link to="#" className="rounded-3xl p-2 dark:hover:bg-background-600 hover:bg-background-100">
           <h2>
             <IoNotificationsOutline className="inline text-2xl mx-3" />
             <span className="hidden lg:inline-block">
@@ -58,7 +58,7 @@ const SideNav: FC = () => {
             </span>
           </h2>
         </Link>
-        <Link to="/users" className="rounded-3xl p-2 hover:bg-accent">
+        <Link to="/users" className="rounded-3xl p-2 dark:hover:bg-background-600 hover:bg-background-100">
           <h2>
             <IoEllipsisHorizontalOutline className="inline text-2xl mx-3" />
             <span className="hidden lg:inline-block">{content.more}</span>

@@ -1,5 +1,6 @@
 import { FocusEvent, KeyboardEvent, useRef, useState } from 'react'
 import { isRTL, translation } from '../lib/translation'
+import cn from 'classnames'
 
 interface ShweetInputProps {
   className?: string
@@ -29,14 +30,16 @@ export const ShweetInput = (props: ShweetInputProps) => {
   const handleOnFocus = (e: FocusEvent<HTMLDivElement>) => {
     const value = e.target.innerText
     if (value === placeholder) e.target.innerText = ''
-    e.target.classList.replace('text-main-400', 'text-main-50')
+    e.target.classList.replace('dark:text-main-400', 'dark:text-main-50')
+    e.target.classList.replace('text-main-400', 'text-main-600')
   }
   const handleOnBlur = (e: FocusEvent<HTMLDivElement>) => {
       const value = e.target.innerText
       if (value === '') {
         e.target.innerHTML = placeholder
         setDir(defaultDir)
-        e.target.classList.replace('text-main-50', 'text-main-400')
+        e.target.classList.replace('dark:text-main-50', 'dark:text-main-400')
+        e.target.classList.replace('text-main-600', 'text-main-400')
       }
     }
 
@@ -45,7 +48,7 @@ export const ShweetInput = (props: ShweetInputProps) => {
       contentEditable={true}
       key={'tweet'}
       dir={dir}
-      className={props?.className}
+      className={cn(props?.className, "dark:text-main-400 text-main-400" )}
       onKeyPress={handleKeyPress}
       onInput={handleInput}
       onBlur={handleOnBlur}

@@ -115,7 +115,7 @@ const AllTweets: FC<AllTweetsProps> = ({ className }) => {
                   </div>
                 </div>
               </div>
-              <div className="bottom-0 h-px bg-background-600" />
+              <div className="bottom-0 h-px dark:bg-background-600 bg-background-200" />
             </div>
           ))
         )}
