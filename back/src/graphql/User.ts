@@ -16,7 +16,29 @@ export const User = objectType({
           .shweets()
       },
     })
+    t.field('profile', {
+      type: 'Profile',
+      resolve(root, _args, ctx) {
+        return ctx.prisma.user
+          .findUnique(
+            {
+              where: {id: root.id}
+            }
+          ).profile()
+      }
+    })
   },
+})
+export const Profile = objectType({
+  name: 'Profile',
+  definition(t) {
+    t.nonNull.int('userId')
+    t.dateTime('createdAt')
+    t.string('avatar')
+    t.string('bio')
+    t.string('location')
+    t.string('website')
+  }
 })
 
 export const AllUsers = objectType({

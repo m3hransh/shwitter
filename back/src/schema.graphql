@@ -41,6 +41,15 @@ type Mutation {
   updateShweet(content: String!, id: Int!): Shweet!
 }
 
+type Profile {
+  avatar: String
+  bio: String
+  createdAt: DateTime
+  location: String
+  userId: Int!
+  website: String
+}
+
 type Query {
   allUsers(filter: String, skip: Int, take: Int): AllUsers!
   feed(filter: String, orderBy: [ShweetOrderByInput!], skip: Int, take: Int): Feed!
@@ -70,5 +79,6 @@ type User {
   email: String!
   id: Int!
   name: String!
+  profile: Profile
   shweets: [Shweet!]!
 }

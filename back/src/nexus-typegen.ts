@@ -67,6 +67,14 @@ export interface NexusGenObjects {
     userId: number; // Int!
   }
   Mutation: {};
+  Profile: { // root type
+    avatar?: string | null; // String
+    bio?: string | null; // String
+    createdAt?: NexusGenScalars['DateTime'] | null; // DateTime
+    location?: string | null; // String
+    userId: number; // Int!
+    website?: string | null; // String
+  }
   Query: {};
   Shweet: { // root type
     content: string; // String!
@@ -119,6 +127,14 @@ export interface NexusGenFieldTypes {
     signup: NexusGenRootTypes['AuthPayload']; // AuthPayload!
     updateShweet: NexusGenRootTypes['Shweet']; // Shweet!
   }
+  Profile: { // field return type
+    avatar: string | null; // String
+    bio: string | null; // String
+    createdAt: NexusGenScalars['DateTime'] | null; // DateTime
+    location: string | null; // String
+    userId: number; // Int!
+    website: string | null; // String
+  }
   Query: { // field return type
     allUsers: NexusGenRootTypes['AllUsers']; // AllUsers!
     feed: NexusGenRootTypes['Feed']; // Feed!
@@ -136,6 +152,7 @@ export interface NexusGenFieldTypes {
     email: string; // String!
     id: number; // Int!
     name: string; // String!
+    profile: NexusGenRootTypes['Profile'] | null; // Profile
     shweets: NexusGenRootTypes['Shweet'][]; // [Shweet!]!
   }
 }
@@ -168,6 +185,14 @@ export interface NexusGenFieldTypeNames {
     signup: 'AuthPayload'
     updateShweet: 'Shweet'
   }
+  Profile: { // field return type name
+    avatar: 'String'
+    bio: 'String'
+    createdAt: 'DateTime'
+    location: 'String'
+    userId: 'Int'
+    website: 'String'
+  }
   Query: { // field return type name
     allUsers: 'AllUsers'
     feed: 'Feed'
@@ -185,6 +210,7 @@ export interface NexusGenFieldTypeNames {
     email: 'String'
     id: 'Int'
     name: 'String'
+    profile: 'Profile'
     shweets: 'Shweet'
   }
 }

@@ -32,11 +32,11 @@ model User {
 
 model Profile {
   userId    Int    @id
-  avatar    String
-  bio       String
-  createdAt String
-  location  String
-  website   String
+  createdAt DateTime @default(now())
+  avatar    String?
+  bio       String?
+  location  String?
+  website   String?
   user      User   @relation(fields: [userId], references: [id])
 }
 
