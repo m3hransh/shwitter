@@ -36,6 +36,13 @@ const ME = gql`
       id
       name
       email
+      profile {
+        avatar
+        bio
+        location
+        website
+        createdAt
+      }
     }
   }
 `

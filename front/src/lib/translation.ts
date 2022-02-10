@@ -20,7 +20,7 @@ interface Translation {
         second: string
         third: string
       }
-      main:{
+      main: {
         first: string
         second: string
       }
@@ -35,7 +35,7 @@ interface Translation {
     }
     searchBox: {
       search: string
-      }
+    }
     trends: {
       title: string
     }
@@ -48,20 +48,27 @@ interface Translation {
       sending: string
     }
     logout: {
-      exit: string 
+      exit: string
       addAccount: string
+    }
+    profile: {
+      editButton: string
+      follower: string
+      following: string
     }
   }
 }
 // NOTE: I've used following solution. Need more exploration
 // https://stackoverflow.com/questions/16320397/detect-user-input-language-javascript
-export const isRTL = (s:string):boolean =>{           
-    const ltrChars    = 'A-Za-z\u00C0-\u00D6\u00D8-\u00F6\u00F8-\u02B8\u0300-\u0590\u0800-\u1FFF'+'\u2C00-\uFB1C\uFDFE-\uFE6F\uFEFD-\uFFFF',
-        rtlChars    = '\u0591-\u07FF\uFB1D-\uFDFD\uFE70-\uFEFC',
-        rtlDirCheck = new RegExp('^[^'+ltrChars+']*['+rtlChars+']');
+export const isRTL = (s: string): boolean => {
+  const ltrChars =
+      'A-Za-z\u00C0-\u00D6\u00D8-\u00F6\u00F8-\u02B8\u0300-\u0590\u0800-\u1FFF' +
+      '\u2C00-\uFB1C\uFDFE-\uFE6F\uFEFD-\uFFFF',
+    rtlChars = '\u0591-\u07FF\uFB1D-\uFDFD\uFE70-\uFEFC',
+    rtlDirCheck = new RegExp('^[^' + ltrChars + ']*[' + rtlChars + ']')
 
-    return rtlDirCheck.test(s);
-};
+  return rtlDirCheck.test(s)
+}
 
 export const translation: Translation = {
   eng: {
@@ -73,7 +80,7 @@ export const translation: Translation = {
       password: 'Password',
       passwordConf: 'Confirm Password',
       haveAccount: 'Already have an account?',
-      noAccount: 'Don\'t have an account?',
+      noAccount: "Don't have an account?",
       requiredMsg: 'This is required',
       emailMsg: 'Invalid email address',
       passwordMaxMessage: 'Must be 20 characters or less',
@@ -85,10 +92,10 @@ export const translation: Translation = {
         second: 'Hear what people are talking about',
         third: 'Join the conversation',
       },
-      main:{
+      main: {
         first: 'Happening Now',
-        second: 'Join Shwitter Today'
-      }
+        second: 'Join Shwitter Today',
+      },
     },
     sideNav: {
       home: 'Home',
@@ -96,26 +103,31 @@ export const translation: Translation = {
       messages: 'Messages',
       notifications: 'Notifications',
       more: 'More',
-      shweet: 'Shweet'
+      shweet: 'Shweet',
     },
     searchBox: {
       search: 'Search Shwitter',
     },
     trends: {
-      title: 'Trends for you'
-  },
+      title: 'Trends for you',
+    },
     home: {
-    title: 'Home',
-  },
+      title: 'Home',
+    },
     tweet: {
-      placeholder: 'What\'s happening',
+      placeholder: "What's happening",
       submit: 'Shweet',
-      sending: 'Sending...'
+      sending: 'Sending...',
     },
     logout: {
       exit: 'Log out',
-      addAccount: 'Add an existing account'
-  }
+      addAccount: 'Add an existing account',
+    },
+    profile: {
+      editButton: 'Edit profile',
+      follower: 'follower',
+      following: 'following',
+    },
   },
   ir: {
     form: {
@@ -140,8 +152,8 @@ export const translation: Translation = {
       },
       main: {
         first: 'اتفاقات همین الان',
-        second: 'امروز به شوییتر بپیوند'
-      }
+        second: 'امروز به شوییتر بپیوند',
+      },
     },
     sideNav: {
       home: 'خانه',
@@ -149,25 +161,31 @@ export const translation: Translation = {
       messages: 'پیام‌ها',
       notifications: 'اخبار',
       more: 'بیشتر',
-      shweet: 'شوییت'
+      shweet: 'شوییت',
     },
     searchBox: {
       search: 'جستجو',
     },
     trends: {
-      title: 'اتفاقات داغ'
-  },
+      title: 'اتفاقات داغ',
+    },
     home: {
-    title: 'خانه',
-  },
+      title: 'خانه',
+    },
     tweet: {
       placeholder: 'چه خبره؟',
       submit: 'شوییت',
-      sending: 'ارسال...'
+      sending: 'ارسال...',
     },
     logout: {
       exit: 'خروج',
-      addAccount: 'اضافه کردن کاربر جدید'
-  }
+      addAccount: 'اضافه کردن کاربر جدید',
+    },
+
+    profile: {
+      editButton: 'ویرایش',
+      follower: 'دنبال کننده',
+      following: 'دنبال کردن',
+    },
   },
 }

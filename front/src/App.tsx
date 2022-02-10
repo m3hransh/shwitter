@@ -12,6 +12,7 @@ import { RequiredAuth, AuthProvider } from './components/Auth'
 import Home from './pages/Home'
 import Landing from './pages/Landing'
 import Login from './pages/Login'
+import Profile from './pages/Profile';
 import Root from './pages/Root'
 import Signup from './pages/Signup'
 import Users from './pages/Users'
@@ -72,6 +73,14 @@ function App() {
                 element={
                   <RequiredAuth>
                     <Home />
+                  </RequiredAuth>
+                }
+              />
+              <Route
+                path="profile"
+                element={
+                  <RequiredAuth>
+                    <Profile />
                   </RequiredAuth>
                 }
               />

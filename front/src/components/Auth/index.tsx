@@ -14,6 +14,13 @@ export interface User {
   id: number
   name: string
   email: string
+  profile?: {
+    avatar: string
+    bio: string
+    locatoin: string
+    website: string
+    createdAt: string
+  }
 }
 
 type initialState = {
