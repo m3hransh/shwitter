@@ -30,7 +30,7 @@ const LOGIN_MUTATION = gql`
     }
   }
 `
-const ME = gql`
+export const ME_QUERY = gql`
   query Me {
     me {
       id
@@ -94,7 +94,7 @@ const AuthProvider: FC<AuthProviderProps> = ({ children }) => {
     return data?.login.user
   }
 
-  const [meQuery, meState] = useLazyQuery<{ me: User }>(ME, {
+  const [meQuery, meState] = useLazyQuery<{ me: User }>(ME_QUERY, {
      fetchPolicy: "network-only",   // Used for first execution
   nextFetchPolicy: "cache-and-network" // Used for subsequent executions
   })

@@ -17,7 +17,7 @@ export interface User {
   profile?: {
     avatar: string
     bio: string
-    locatoin: string
+    location: string
     website: string
     createdAt: string
   }

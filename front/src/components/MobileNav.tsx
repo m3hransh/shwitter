@@ -2,10 +2,8 @@ import { FC, ReactElement } from 'react'
 import { Link } from 'react-router-dom'
 import {
   IoNotificationsOutline,
-  IoEllipsisHorizontalOutline,
   IoMailOutline,
   IoHomeOutline,
-  IoPersonOutline,
   IoSearchOutline,
 } from 'react-icons/io5'
 import cn from 'classnames'
