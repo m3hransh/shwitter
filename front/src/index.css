@@ -7,14 +7,15 @@
   height: 100%l;
 }
 @layer base {
-  input {
+  .input {
     border-radius: 20px;
     outline: none;
     border: 2px solid rgb(0, 0, 0, 0.2);
     text-align: center;
     padding: .25rem;
   }
-  textarea {
+
+  textarea, input {
     border: none;
     overflow: auto;
     outline: none;
@@ -24,6 +25,9 @@
     box-shadow: none;
 
     resize: none; /*remove the resize handle on the bottom right*/
+  }
+  textarea:focus, input:focus{
+    outline: none;
   }
 }
 
