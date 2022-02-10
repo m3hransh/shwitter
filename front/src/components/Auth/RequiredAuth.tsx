@@ -1,6 +1,7 @@
 import { FC, ReactElement, useEffect, useState } from 'react'
 import { Navigate, useLocation } from 'react-router-dom'
 import { useAuth } from '.'
+import Loading from '../Loading'
 
 export interface RequiredAuthProps {
   children: ReactElement
@@ -19,7 +20,7 @@ const RequiredAuth: FC<RequiredAuthProps> = ({ children }) => {
     
   }, [])
 
-  if (!called || state.loading) return <p>Loading...</p>
+  if (!called || state.loading) return <Loading />
   if (state.error) return <p>`Errror: ${state.error.message}` </p>
 
   if (user) return children

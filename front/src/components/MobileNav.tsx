@@ -20,7 +20,7 @@ const MobileNav: FC<MobileNavProps> = ({ className }) => {
     <div
       className={cn(
         className,
-        'flex  items-center justify-around text-main-50 lg:items-start',
+        'flex items-center justify-around dark:text-main-50 lg:items-start',
       )}
     >
       <Link to="/" className="rounded-3xl p-2 hover:bg-accent">
