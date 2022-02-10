@@ -29,6 +29,12 @@ declare global {
 }
 
 export interface NexusGenInputs {
+  ProfileInput: { // input type
+    avatar?: string | null; // String
+    bio?: string | null; // String
+    location?: string | null; // String
+    website?: string | null; // String
+  }
   ShweetOrderByInput: { // input type
     content?: NexusGenEnums['Sort'] | null; // Sort
     createdAt?: NexusGenEnums['Sort'] | null; // Sort
@@ -121,6 +127,7 @@ export interface NexusGenFieldTypes {
   }
   Mutation: { // field return type
     deleteShweet: NexusGenRootTypes['Shweet']; // Shweet!
+    editProfile: NexusGenRootTypes['Profile'] | null; // Profile
     like: NexusGenRootTypes['LikedShweet'] | null; // LikedShweet
     login: NexusGenRootTypes['AuthPayload']; // AuthPayload!
     shweet: NexusGenRootTypes['Shweet']; // Shweet!
@@ -179,6 +186,7 @@ export interface NexusGenFieldTypeNames {
   }
   Mutation: { // field return type name
     deleteShweet: 'Shweet'
+    editProfile: 'Profile'
     like: 'LikedShweet'
     login: 'AuthPayload'
     shweet: 'Shweet'
@@ -219,6 +227,9 @@ export interface NexusGenArgTypes {
   Mutation: {
     deleteShweet: { // args
       id: number; // Int!
+    }
+    editProfile: { // args
+      data: NexusGenInputs['ProfileInput']; // ProfileInput!
     }
     like: { // args
       shweetId: number; // Int!

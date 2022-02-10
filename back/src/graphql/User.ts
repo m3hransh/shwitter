@@ -29,17 +29,6 @@ export const User = objectType({
     })
   },
 })
-export const Profile = objectType({
-  name: 'Profile',
-  definition(t) {
-    t.nonNull.int('userId')
-    t.dateTime('createdAt')
-    t.string('avatar')
-    t.string('bio')
-    t.string('location')
-    t.string('website')
-  }
-})
 
 export const AllUsers = objectType({
   name: 'AllUsers',

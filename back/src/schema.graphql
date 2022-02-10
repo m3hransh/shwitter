@@ -34,6 +34,7 @@ type LikedShweet {
 
 type Mutation {
   deleteShweet(id: Int!): Shweet!
+  editProfile(data: ProfileInput!): Profile
   like(shweetId: Int!): LikedShweet
   login(email: String!, password: String!): AuthPayload!
   shweet(content: String!): Shweet!
@@ -47,6 +48,13 @@ type Profile {
   createdAt: DateTime
   location: String
   userId: Int!
+  website: String
+}
+
+input ProfileInput {
+  avatar: String
+  bio: String
+  location: String
   website: String
 }
 
