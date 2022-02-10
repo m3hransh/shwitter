@@ -56,6 +56,18 @@ interface Translation {
       follower: string
       following: string
     }
+    editProfile: {
+      title: string
+      name: string
+      bio: string
+      location: string
+      website: string
+      save: string
+      errors:{
+        required: string
+        max: string
+      }
+    }
   }
 }
 // NOTE: I've used following solution. Need more exploration
@@ -128,6 +140,18 @@ export const translation: Translation = {
       follower: 'follower',
       following: 'following',
     },
+    editProfile: {
+      title: 'Edit profile',
+      name: 'Name',
+      bio: 'Bio',
+      location: 'Location',
+      website: 'Website',
+      save: 'Save',
+      errors:{
+        required: 'This filed is required',
+        max: 'This filed is too long'
+      }
+    }
   },
   ir: {
     form: {
@@ -187,5 +211,17 @@ export const translation: Translation = {
       follower: 'دنبال کننده',
       following: 'دنبال کردن',
     },
+    editProfile: {
+      title: 'ویرایش پروفایل',
+      name: 'نام',
+      bio: 'بیو',
+      location: 'موقعیت جغرافیایی',
+      website: 'وبسایت',
+      save: 'ثبت',
+      errors:{
+        required: 'این فیلد نیاز است',
+        max: 'تعداد حروف بیش از حد مجاز است'
+      }
+    }
   },
 }
