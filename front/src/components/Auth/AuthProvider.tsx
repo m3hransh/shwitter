@@ -95,22 +95,16 @@ const AuthProvider: FC<AuthProviderProps> = ({ children }) => {
   }
 
   const [meQuery, meState] = useLazyQuery<{ me: User }>(ME_QUERY, {
-     fetchPolicy: "network-only",   // Used for first execution
-  nextFetchPolicy: "cache-and-network" // Used for subsequent executions
+    fetchPolicy: 'network-only', // Used for first execution
+    nextFetchPolicy: 'cache-and-network', // Used for subsequent executions
+    onCompleted: (data) => {
+      setUser(data.me)
+      setState(meState)
+    },
   })
 
   const getCurrentUser = async () => {
-    if (meState.called)
-      return meState.data?.me
-
-    const { data } = await meQuery()
-    console.log('after call')
-    setState(meState)
-
-    if (data) {
-      setUser(data.me)
-    }
-    return data?.me
+    meQuery()
   }
 
   const logout = () => {

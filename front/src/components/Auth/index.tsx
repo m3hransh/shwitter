@@ -5,7 +5,7 @@ export interface AuthContextType {
   user: User
   signup: (user: Omit<User, 'id'>) => Promise<User | undefined>
   login: (user: Omit<User, 'id' | 'name'>) => Promise<User | undefined>
-  getCurrentUser: () => Promise<User | undefined>
+  getCurrentUser: () => Promise<void>
   logout: () => void
   state: State
 }
