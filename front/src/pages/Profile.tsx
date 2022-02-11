@@ -1,10 +1,11 @@
 import { FC, ReactElement } from 'react'
 import { useAuth } from '../components/Auth'
 import Layout from '../components/Layout'
-import { Link, useNavigate } from 'react-router-dom'
+import { useNavigate } from 'react-router-dom'
 import {
   IoArrowForwardOutline,
   IoLinkOutline,
+  IoLocationOutline,
   IoPersonCircleOutline,
 } from 'react-icons/io5'
 import { translation } from '../lib/translation'
@@ -43,7 +44,7 @@ const Profile: FC<ProfileProps> = () => {
               {user?.profile?.avatar ? (
                 <img
                   src={user.profile.avatar}
-                  className="w-36 rounded-full"
+                  className="w-36 h-36 rounded-full"
                   alt="avatar"
                 />
               ) : (
@@ -54,7 +55,7 @@ const Profile: FC<ProfileProps> = () => {
             <EditProfile
               className="mr-auto bg-white block 
                 rounded-3xl py-2 px-3 text-gray-800 border-2 
-                border-opacity-90font-bold hover:bg-accent"
+                border-opacity-90font-bold hover:bg-background-200"
               title={elements.editButton}
             />
             {/* ) : ( */}
@@ -66,18 +67,27 @@ const Profile: FC<ProfileProps> = () => {
             {/* )} */}
           </div>
           <h3 className="text-xl font-bold">{user.name}</h3>
+          {user?.profile?.bio ? (
+            <p className="mt-3 space-x-2">{user.profile.bio}</p>
+          ) : null}
+          <div className="text-sm text-main-500 flex gap-2">
+
           {user?.profile?.website ? (
-            <p className="mt-3 space-x-2">
-              <IoLinkOutline className="inline" />
-              <Link
-                to={{ pathname: `http://${user.profile.website}` }}
-                target="_blank"
-              >
+            <p className="mt-3 flex gap-1 items-center">
+              <IoLinkOutline className="inline text-lg" />
+              <a href={`http://${user.profile.website}`} target="_blank">
                 {user.profile.website}
-              </Link>
+              </a>
+            </p>
+          ) : null}
+          {user?.profile?.location ? (
+            <p className="mt-3 flex gap-1 items-center">
+              <IoLocationOutline className="inline text-lg" />
+                {user.profile.location}
             </p>
           ) : null}
           {/* Followers  */}
+          </div>
           <div className="flex mt-3 gap-4">
             <p>
               <span className="font-bold">۲۰۰</span> {elements.follower}
