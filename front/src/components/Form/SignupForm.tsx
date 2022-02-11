@@ -7,6 +7,7 @@ import ShwitterLogo from '../../assets/silent-crow.png'
 import { translation } from '../../lib/translation'
 import { useAuth } from '../Auth'
 import ErrorMessage from './ErrorMessage'
+import cn from 'classnames'
 
 const validationSchemaGenerate = (lang: string) =>
   yup.object({
@@ -73,14 +74,14 @@ const SignupForm: FC<SignupFormProps> = () => {
           <input
             {...register('name')}
             placeholder={translation[lang].form.name}
-            className={errors.name && 'border-red-600'}
+            className={cn('input', errors.name && 'border-red-600')}
           />
           <ErrorMessage>{errors.name?.message}</ErrorMessage>
           <input
             {...register('email')}
             placeholder={translation[lang].form.email}
             dir="ltr"
-            className={errors.email && 'border-red-600'}
+            className={cn('input', errors.email && 'border-red-600')}
           />
           <ErrorMessage>{errors.email?.message}</ErrorMessage>
           <input
@@ -88,7 +89,7 @@ const SignupForm: FC<SignupFormProps> = () => {
             type="password"
             placeholder={translation[lang].form.password}
             dir="ltr"
-            className={errors.email && 'border-red-600'}
+            className={cn('input', errors.email && 'border-red-600')}
           />
           <ErrorMessage>{errors?.password?.message}</ErrorMessage>
           <input
@@ -96,7 +97,7 @@ const SignupForm: FC<SignupFormProps> = () => {
             type="password"
             placeholder={translation[lang].form.passwordConf}
             dir="ltr"
-            className={errors.email && 'border-red-600'}
+            className={cn('input', errors.email && 'border-red-600')}
           />
           <ErrorMessage>{errors.confirmPassword?.message}</ErrorMessage>
           <button

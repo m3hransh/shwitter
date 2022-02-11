@@ -8,6 +8,7 @@ import ErrorMessage from './ErrorMessage'
 import { FC, ReactElement } from 'react'
 import { Link, useLocation, useNavigate } from 'react-router-dom'
 import { useAuth } from '../Auth'
+import cn from 'classnames'
 
 const validationSchemaGenerate = (lang: string) =>
   yup.object({
@@ -68,7 +69,7 @@ const LoginForm: FC<LoginFormProps> = () => {
             {...register('email')}
             placeholder={translation[lang].form.email}
             dir="ltr"
-            className={errors.email && 'border-red-600'}
+            className={cn('input', errors.email && 'border-red-600')}
           />
           <ErrorMessage>{errors.email?.message}</ErrorMessage>
           <input
@@ -76,7 +77,7 @@ const LoginForm: FC<LoginFormProps> = () => {
             type="password"
             placeholder={translation[lang].form.password}
             dir="ltr"
-            className={errors.email && 'border-red-600'}
+            className={cn('input', errors.email && 'border-red-600')}
           />
           <ErrorMessage>{errors.password?.message}</ErrorMessage>
           <button
