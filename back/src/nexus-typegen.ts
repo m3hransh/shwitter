@@ -29,6 +29,13 @@ declare global {
 }
 
 export interface NexusGenInputs {
+  FilterInputType: { // input type
+    emailFilter?: string | null; // String
+    skip?: number | null; // Int
+    take?: number | null; // Int
+    userId?: number | null; // Int
+    usernameFilter?: string | null; // String
+  }
   ProfileInput: { // input type
     avatar?: string | null; // String
     bio?: string | null; // String
@@ -258,9 +265,7 @@ export interface NexusGenArgTypes {
   }
   Query: {
     allUsers: { // args
-      filter?: string | null; // String
-      skip?: number | null; // Int
-      take?: number | null; // Int
+      data?: NexusGenInputs['FilterInputType'] | null; // FilterInputType
     }
     feed: { // args
       filter?: string | null; // String

@@ -24,6 +24,14 @@ type Feed {
   shweets: [Shweet!]!
 }
 
+input FilterInputType {
+  emailFilter: String
+  skip: Int
+  take: Int
+  userId: Int
+  usernameFilter: String
+}
+
 type LikedShweet {
   likedAt: DateTime!
   shweet: Shweet
@@ -61,7 +69,7 @@ input ProfileInput {
 }
 
 type Query {
-  allUsers(filter: String, skip: Int, take: Int): AllUsers!
+  allUsers(data: FilterInputType): AllUsers!
   feed(filter: String, orderBy: [ShweetOrderByInput!], skip: Int, take: Int): Feed!
   me: User
 }

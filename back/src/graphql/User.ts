@@ -1,4 +1,4 @@
-import { extendType, intArg, objectType, stringArg } from 'nexus'
+import { extendType, inputObjectType, objectType } from 'nexus'
 
 export const User = objectType({
   name: 'User',
@@ -20,12 +20,11 @@ export const User = objectType({
       type: 'Profile',
       resolve(root, _args, ctx) {
         return ctx.prisma.user
-          .findUnique(
-            {
-              where: {id: root.id}
-            }
-          ).profile()
-      }
+          .findUnique({
+            where: { id: root.id },
+          })
+          .profile()
+      },
     })
   },
 })
@@ -38,30 +37,44 @@ export const AllUsers = objectType({
   },
 })
 
+export const UserInputType = inputObjectType({
+  name: 'FilterInputType',
+  definition(t) {
+    t.field
+    t.int('userId')
+    t.string('usernameFilter')
+    t.string('emailFilter')
+    t.int('skip')
+    t.int('take')
+  },
+})
+
 export const UserQuery = extendType({
   type: 'Query',
   definition(t) {
     t.nonNull.field('allUsers', {
       type: 'AllUsers',
       args: {
-        filter: stringArg(),
-        skip: intArg(),
-        take: intArg(),
+        data: UserInputType,
       },
       async resolve(_root, args, ctx, _info) {
-        const where = args.filter
-          ? {
-              OR: [
-                { username: { contains: args.filter } },
-                { email: { contains: args.filter } },
-              ],
-            }
-          : {}
+        const where: any = {}
 
+        if (args.data?.emailFilter)
+          where.OR = [{ email: args.data?.emailFilter }]
+        if (args.data?.usernameFilter)
+          if (where.OR)
+            where.OR = [
+              ...where.OR,
+              { username: args.data?.usernameFilter },
+            ]
+          else where.OR = [{ username: args.data?.usernameFilter }]
+
+        console.log(where)
         const users = await ctx.prisma.user.findMany({
           where,
-          skip: args?.skip as number | undefined,
-          take: args?.take as number | undefined,
+          skip: args.data?.skip as number | undefined,
+          take: args.data?.take as number | undefined,
         })
 
         const count = await ctx.prisma.user.count()
