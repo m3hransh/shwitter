@@ -16,7 +16,7 @@ export const USERS_QUERY = gql`
         id
         username
         email
-        profile{
+        profile {
           name
           avatar
           createdAt
@@ -42,16 +42,15 @@ export interface AllUsers {
   }
 }
 const Users: FC<UsersProps> = () => {
-  const { loading, error, data } = useQuery<AllUsers>(USERS_QUERY)
+  const { loading, data } = useQuery<AllUsers>(USERS_QUERY)
 
-  if (error) return <p>Error :(</p>
-
-  if (!data) return <p>Not found</p>
   return (
     <Layout>
-
       <div className="mx-auto w-full text-center max-w-2xl ">
-        {loading? <Loading /> :data.allUsers.users.map((user) => (
+        {loading ? (
+          <Loading />
+        ) : (
+          data?.allUsers.users.map((user) => (
             <div key={user.id} className="hover:bg-accent">
               <div className="flex  items-center gap-2 p-3">
                 <div className="flex-grow-0">
@@ -62,21 +61,19 @@ const Users: FC<UsersProps> = () => {
                       alt="avatar"
                     />
                   ) : (
-                  <IoPersonCircleOutline className="inline w-14 h-14 " />
+                    <IoPersonCircleOutline className="inline w-14 h-14 " />
                   )}
                 </div>
-                      {user.profile?.name}
-                    <div className="text-gray-500 flex gap-2 text-sm">
-                      <div dir="ltr">
-                        {`@${user.username}`}
-                      </div>
-                      <div>{dateView(user.profile.createdAt)}</div>
-                  </div>
+                {user.profile?.name}
+                <div className="text-gray-500 flex gap-2 text-sm">
+                  <div dir="ltr">{`@${user.username}`}</div>
+                  <div>{dateView(user.profile.createdAt)}</div>
+                </div>
               </div>
               <div className="bottom-0 h-px dark:bg-background-600 bg-background-200" />
             </div>
-
-        ))}
+          ))
+        )}
       </div>
     </Layout>
   )

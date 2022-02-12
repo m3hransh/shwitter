@@ -17,7 +17,6 @@ const RequiredAuth: FC<RequiredAuthProps> = ({ children }) => {
   }, [])
 
   if (state.loading) return <Loading />
-  if (state.error) return <p>`Errror: ${state.error.message}` </p>
   // make sure it waits for the first call
   if (!state.called)return <Loading />
   if (user) return children

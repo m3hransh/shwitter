@@ -89,6 +89,8 @@ export const UserQuery = extendType({
       type: 'User',
       resolve(_root, _args, ctx) {
         const { userId } = ctx
+        if (!userId)
+          throw new Error('User has not sign in')
         return ctx.prisma.user.findUnique({
           where: {
             id: userId,
