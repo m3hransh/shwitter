@@ -48,21 +48,16 @@ export interface EditProfileProps {
   title?: string
 }
 
-interface ProfileValues {
-  name: string
-  bio: string
-  location: string
-  website: string
-  avatar: string
-}
-
 const validationSchemaGenerate = (lang: string) =>
   yup.object({
     name: yup
       .string()
       .max(50, translation[lang].editProfile.errors.max)
       .required(translation[lang].editProfile.errors.required),
-    bio: yup.string().max(160, translation[lang].editProfile.errors.max).nullable(),
+    bio: yup
+      .string()
+      .max(160, translation[lang].editProfile.errors.max)
+      .nullable(),
     location: yup
       .string()
       .max(30, translation[lang].editProfile.errors.max)
@@ -81,12 +76,9 @@ const EditProfile: FC<EditProfileProps> = ({ className, title }) => {
   const lang = 'ir'
   const elements = translation[lang].editProfile
 
-  const [editProfile, { loading, error }] = useMutation(
-    EDITPROFILE_MUTATION,
-    {
-      refetchQueries: [ME_QUERY],
-    },
-  )
+  const [editProfile] = useMutation(EDITPROFILE_MUTATION, {
+    refetchQueries: [ME_QUERY],
+  })
 
   const [disabled, setDisabled] = useState(true)
   const [image, setImage] = useState(user?.profile?.avatar)
@@ -127,16 +119,15 @@ const EditProfile: FC<EditProfileProps> = ({ className, title }) => {
     }
     setDisabled(false)
   }
-  const onSubmit: SubmitHandler<FormValues> = async(data) => {
+  const onSubmit: SubmitHandler<FormValues> = async (data) => {
     await editProfile({
-      variables: {...data, avatar:image}
+      variables: { ...data, avatar: image },
     })
     await getCurrentUser()
-    setDisabled(true) 
+    setDisabled(true)
   }
   const onChange: SubmitHandler<FormValues> = (data) => {
-    setDisabled(_.isEqual({...data, avatar:image}, user.profile))
-    console.log({...data, avatar: image}, user.profile)
+    setDisabled(_.isEqual({ ...data, avatar: image }, user.profile))
   }
   return (
     <>
@@ -147,14 +138,14 @@ const EditProfile: FC<EditProfileProps> = ({ className, title }) => {
         <>
           <div
             className="justify-center items-center flex 
-            overflow-hidden fixed 
+            fixed  overflow-hidden
             inset-0 z-50 outline-none focus:outline-none"
           >
-            <div className="relative rounded-md w-full my-auto overflow-y-auto mx-auto max-w-xl">
+            <div className="relative rounded-md w-full h-3/4 my-auto overflow-y-auto mx-2 max-w-xl">
               {/*content*/}
               <div
                 className="border-0 rounded-lg shadow-lg 
-                relative  flex flex-col w-full bg-white 
+                relative flex flex-col w-full bg-white 
                 outline-none focus:outline-none "
               >
                 <form
@@ -179,9 +170,11 @@ const EditProfile: FC<EditProfileProps> = ({ className, title }) => {
                       <IoClose className="bg-transparent text-black h-6 w-6 text-4xl block outline-none focus:outline-none" />
                     </button>
                     <h3 className=" font-semibold">{elements.title}</h3>
-                    <button 
-                      className={cn(" mr-auto rounded-2xl px-3 py-1 text-main-50 ",
-                      disabled ? 'bg-background-500': 'bg-primary-500')}
+                    <button
+                      className={cn(
+                        ' mr-auto rounded-2xl px-3 py-1 text-main-50 ',
+                        disabled ? 'bg-background-500' : 'bg-primary-500',
+                      )}
                       disabled={disabled}
                     >
                       {elements.save}
@@ -197,7 +190,11 @@ const EditProfile: FC<EditProfileProps> = ({ className, title }) => {
                       />
                     </div>
                     <div className="absolute flex h-full w-36 justify-center items-center m-auto">
-                    <ClipLoader size={60} loading={imageLoading} color="#fff" />
+                      <ClipLoader
+                        size={60}
+                        loading={imageLoading}
+                        color="#fff"
+                      />
                     </div>
                     <input
                       type="file"

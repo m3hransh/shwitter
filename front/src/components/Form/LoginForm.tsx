@@ -49,7 +49,6 @@ const LoginForm: FC<LoginFormProps> = () => {
 
   const onSubmit: SubmitHandler<FormValues> = async (loginUser) => {
     const user = await login(loginUser)
-    console.log(user)
     if (user?.email === loginUser.email) {
       navigate(from, { replace: true })
     }

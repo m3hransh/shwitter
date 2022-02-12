@@ -10,6 +10,7 @@ import { gql, useMutation } from '@apollo/client'
 import { ClipLoader } from 'react-spinners'
 import ShweetInput from './ShweetInput'
 import { FEED_QUERY } from './AllTweets'
+import { useAuth } from './Auth'
 
 const SHWEET_MUTATION = gql`
   mutation Shweet($content: String!) {
@@ -20,10 +21,10 @@ const SHWEET_MUTATION = gql`
       content
       author {
         username
-        profile{
+        profile {
           avatar
           name
-        } 
+        }
       }
     }
   }
@@ -35,21 +36,22 @@ const validationSchema = yup.object({
     .min(1, 'Must be more than 1 character')
     .max(256, 'Must be less than 256 characters'),
 })
-export interface ShweetProps{
+export interface ShweetProps {
   children?: ReactElement
   className?: string
-  
 }
 
-const Shweet: FC<ShweetProps> = ({className}) => {
+const Shweet: FC<ShweetProps> = ({ className }) => {
   // TODO: use context for the language
   const lang = 'ir'
   const defaultPlaceholder = translation[lang].tweet.placeholder
-  const [content, setContent] = useState(
-   defaultPlaceholder 
-  )
+  const [content, setContent] = useState(defaultPlaceholder)
   const [update, updateState] = useState(0)
-  const forceUpdate = useCallback(() => updateState(value => value+1), [])
+  const {user} = useAuth()
+  const forceUpdate = useCallback(
+    () => updateState((value) => value + 1),
+    [],
+  )
 
   const disabled = content === defaultPlaceholder || content.length < 1
   const [shweet, { loading, error }] = useMutation(SHWEET_MUTATION, {
@@ -72,8 +74,10 @@ const Shweet: FC<ShweetProps> = ({className}) => {
     shweet({
       variables: { content },
     })
-    setContent( () => {forceUpdate()
-    return ''})
+    setContent(() => {
+      forceUpdate()
+      return ''
+    })
   }
 
   if (error) console.log(error.message)
@@ -83,9 +87,17 @@ const Shweet: FC<ShweetProps> = ({className}) => {
         className="w-full flex flex-col space-y-1 mt-5 p-3"
         onSubmit={handleSubmit(onSubmit)}
       >
-        <div className="flex items-baseline">
+        <div className="flex items-baseline gap-2">
           <div className="flex-grow-0">
-            <IoPersonCircleOutline className="inline w-14 h-14 dark:text-main-50" />
+            {user.profile?.avatar
+              ?
+                    <img
+                      src={user.profile.avatar}
+                      className="inline w-14 h-14 rounded-full"
+                      alt="avatar"
+                    />
+              :<IoPersonCircleOutline className="inline w-14 h-14 dark:text-main-50" />
+            }
           </div>
           <ShweetInput
             className="flex-grow bg-transparent text-xl placeholder-main-300 focus:outline-0"

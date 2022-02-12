@@ -1,10 +1,7 @@
 import { FC, ReactElement } from 'react'
 import { Link } from 'react-router-dom'
 import {
-  IoNotificationsOutline,
-  IoMailOutline,
   IoHomeOutline,
-  IoSearchOutline,
   IoLogoGithub,
   IoPersonOutline,
   IoPeopleOutline,
@@ -39,11 +36,11 @@ const MobileNav: FC<MobileNavProps> = ({ className }) => {
           <IoPeopleOutline className="inline text-2xl mx-3" />
         </h2>
       </Link>
-      <Link to="#" className=" p-2 bg-background-900">
+      <a href="https://github.com/m3hransh/shwitter" className=" p-2 bg-background-900">
         <h2>
           <IoLogoGithub className="inline text-2xl text-main-50 mx-3" />
         </h2>
-      </Link>
+      </a>
     </div>
   )
 }

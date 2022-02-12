@@ -28,7 +28,7 @@ export const FEED_QUERY = gql`
         createdAt
         author {
           username
-          profile{
+          profile {
             name
             avatar
           }
@@ -60,8 +60,6 @@ export interface Feed {
 const AllTweets: FC<AllTweetsProps> = ({ className }) => {
   const { loading, error, data } = useQuery<Feed>(FEED_QUERY)
 
-  console.log(data)
-
   return (
     <div className={className}>
       <div className="flex flex-col">
@@ -81,7 +79,7 @@ const AllTweets: FC<AllTweetsProps> = ({ className }) => {
                       alt="avatar"
                     />
                   ) : (
-                  <IoPersonCircleOutline className="inline w-14 h-14 " />
+                    <IoPersonCircleOutline className="inline w-14 h-14 " />
                   )}
                 </div>
                 <div className="flex flex-col flex-grow mt-1">
@@ -90,9 +88,7 @@ const AllTweets: FC<AllTweetsProps> = ({ className }) => {
                       {tweet.author?.profile?.name}
                     </div>
                     <div className="text-gray-500 flex gap-2 text-sm">
-                      <div dir="ltr">
-                        {`@${tweet.author.username}`}
-                      </div>
+                      <div dir="ltr">{`@${tweet.author.username}`}</div>
                       <div>{dateView(tweet.createdAt)}</div>
                     </div>
                     <FaEllipsisH className="mr-auto text-gray-500 text-sm" />

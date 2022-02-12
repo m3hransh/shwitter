@@ -22,7 +22,7 @@ const Logout: FC<LogoutProps> = ({ className }) => {
   return (
     <>
       <div className={className}>
-        <div className="relative flex flex-col items-center  w-full">
+        <div className="flex flex-col items-center  w-full">
           <Transition
             show={tooltip}
             enter="transition-opacity duration-150"

@@ -82,7 +82,6 @@ const SignupForm: FC<SignupFormProps> = () => {
         username: newUser.username,
       },
     })
-    console.log(data)
     if (
       data?.email.users.length > 0 ||
       data?.username.users.length > 0

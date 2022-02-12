@@ -1,8 +1,5 @@
 import { FC, useState } from 'react'
 import {
-  IoNotificationsOutline,
-  IoEllipsisHorizontalOutline,
-  IoMailOutline,
   IoHomeOutline,
   IoPersonOutline,
   IoPeopleOutline,
