@@ -32,13 +32,15 @@ export const FEED_QUERY = gql`
         content
         createdAt
         author {
-          id
-          name
+          username
+          profile{
+            name
+            avatar
+          }
         }
         likedShweet {
           user {
-            id
-            name
+            username
           }
         }
       }
@@ -71,6 +73,8 @@ const dateView = (date: string) => {
 const AllTweets: FC<AllTweetsProps> = ({ className }) => {
   const { loading, error, data } = useQuery<Feed>(FEED_QUERY)
 
+  console.log(data)
+
   return (
     <div className={className}>
       <div className="flex flex-col">
@@ -83,24 +87,24 @@ const AllTweets: FC<AllTweetsProps> = ({ className }) => {
             <div key={tweet.id} className="hover:bg-accent">
               <div className="flex gap-2 p-3">
                 <div className="flex-grow-0">
-                  {/* {tweet.author.profile && tweet.author.profile.avatar ? ( */}
-                  {/*   <img */}
-                  {/*     src={tweet.author.profile.avatar} */}
-                  {/*     className="w-14 rounded-full" */}
-                  {/*     alt="avatar" */}
-                  {/*   /> */}
-                  {/* ) : ( */}
+                  {tweet.author?.profile?.avatar ? (
+                    <img
+                      src={tweet.author.profile.avatar}
+                      className="w-14 h-14 rounded-full"
+                      alt="avatar"
+                    />
+                  ) : (
                   <IoPersonCircleOutline className="inline w-14 h-14 " />
-                  {/* )} */}
+                  )}
                 </div>
                 <div className="flex flex-col flex-grow mt-1">
                   <div className="flex gap-2 items-center">
                     <div className="font-bold mr-1">
-                      {tweet.author.name}
+                      {tweet.author?.profile?.name}
                     </div>
                     <div className="text-gray-500 flex gap-2 text-sm">
                       <div dir="ltr">
-                        {`@${tweet.author.name} ${tweet.author.id}`}
+                        {`@${tweet.author.username}`}
                       </div>
                       <div>{dateView(tweet.createdAt)}</div>
                     </div>

@@ -84,7 +84,7 @@ const Logout: FC<LogoutProps> = ({ className }) => {
                   {/* ) : ( */}
                   <IoPersonCircleOutline className="inline w-14 h-14" />
                   {/* )} */}
-                  <h3 className="font-bold ml-2">{user.name}</h3>
+                  <h3 className="font-bold ml-2">{user?.profile?.name}</h3>
                   <IoCheckmark className="inline mr-auto text-primary-500 text-xl" />
                 </div>
                 <div
@@ -105,7 +105,7 @@ const Logout: FC<LogoutProps> = ({ className }) => {
                   whitespace-nowrap hover:bg-background-500"
                   onClick={logout}
                 >
-                  {`${translation[lang].logout.exit} @${user.name}${user.id}`}
+                  {`${translation[lang].logout.exit} @${user.username}`}
                 </a>
               </div>
             </div>
@@ -124,7 +124,7 @@ const Logout: FC<LogoutProps> = ({ className }) => {
             <div>
               <IoPersonCircleOutline className="inline w-14 h-14" />
               {/* )} */}
-              <h3 className="font-bold hidden lg:inline">{user.name}</h3>
+              <h3 className="font-bold hidden lg:inline">{user.profile?.name}</h3>
             </div>
             <div className="mr-auto">
               <IoEllipsisHorizontalOutline className="hidden text-2xl lg:inline" />

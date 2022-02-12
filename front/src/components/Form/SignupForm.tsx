@@ -1,5 +1,5 @@
 import { yupResolver } from '@hookform/resolvers/yup'
-import { FC, ReactElement } from 'react'
+import { FC, ReactElement, useState } from 'react'
 import { SubmitHandler, useForm } from 'react-hook-form'
 import { Link, useLocation, useNavigate } from 'react-router-dom'
 import * as yup from 'yup'
@@ -8,9 +8,11 @@ import { translation } from '../../lib/translation'
 import { useAuth } from '../Auth'
 import ErrorMessage from './ErrorMessage'
 import cn from 'classnames'
+import { gql, useLazyQuery, useQuery } from '@apollo/client'
 
 const validationSchemaGenerate = (lang: string) =>
   yup.object({
+    username: yup.string().required(translation[lang].form.requiredMsg),
     name: yup.string().required(translation[lang].form.requiredMsg),
     email: yup
       .string()
@@ -28,14 +30,34 @@ const validationSchemaGenerate = (lang: string) =>
       ),
   })
 
+const USEROREMAIL_QUERY = gql`
+  query UsernameOrEmail($username: String!, $email: String!) {
+    email: allUsers(data: { emailFilter: $email }) {
+      users {
+        username
+        email
+      }
+    }
+    username: allUsers(data: { usernameFilter: $username }) {
+      users {
+        username
+        email
+      }
+    }
+  }
+`
+
 export interface SignupFormProps {
   children?: ReactElement
 }
 
 const SignupForm: FC<SignupFormProps> = () => {
+  const [getUsernameOrEmail, { loading, error }] =
+    useLazyQuery(USEROREMAIL_QUERY)
   const location = useLocation()
   const navigate = useNavigate()
   const { signup, state } = useAuth()
+  const [globalError, setGlobalError] = useState(false)
 
   const locState = location.state as { from: { pathname: string } }
   let from = locState?.from?.pathname || '/'
@@ -54,9 +76,23 @@ const SignupForm: FC<SignupFormProps> = () => {
   })
 
   const onSubmit: SubmitHandler<FormValues> = async (newUser) => {
-    const user = await signup(newUser)
-    if (user?.email === newUser.email) {
-      navigate(from, { replace: true })
+    const { data } = await getUsernameOrEmail({
+      variables: {
+        email: newUser.email,
+        username: newUser.username,
+      },
+    })
+    console.log(data)
+    if (
+      data?.email.users.length > 0 ||
+      data?.username.users.length > 0
+    )
+      setGlobalError(true)
+    else {
+      const user = await signup(newUser)
+      if (user?.email === newUser.email) {
+        navigate(from, { replace: true })
+      }
     }
   }
 
@@ -71,6 +107,12 @@ const SignupForm: FC<SignupFormProps> = () => {
           className="w-full flex flex-col space-y-1 mt-5"
           onSubmit={handleSubmit(onSubmit)}
         >
+          <input
+            {...register('username')}
+            placeholder={translation[lang].form.username}
+            className={cn('input', errors.username && 'border-red-600')}
+          />
+          <ErrorMessage>{errors.username?.message}</ErrorMessage>
           <input
             {...register('name')}
             placeholder={translation[lang].form.name}
@@ -106,12 +148,11 @@ const SignupForm: FC<SignupFormProps> = () => {
           >
             {translation[lang].form.signup}
           </button>
-          <ErrorMessage>
-            {state?.error && "Couldn't connect"}
-          </ErrorMessage>
+          <ErrorMessage>{state?.error && translation[lang].form.noConnectionMsg}</ErrorMessage>
+          <ErrorMessage>{globalError ?translation[lang].form.usernameOrEmailMsg: null}</ErrorMessage>
           {state?.loading && <p>Loadding</p>}
         </form>
-        <div className="mt-14">
+        <div className="mt-8">
           <h4 className="font-bold">
             {translation[lang].form.haveAccount}
           </h4>

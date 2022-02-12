@@ -19,6 +19,7 @@ import _ from 'lodash'
 
 const EDITPROFILE_MUTATION = gql`
   mutation EditProfile(
+    $name: String!
     $bio: String
     $location: String
     $website: String
@@ -26,12 +27,15 @@ const EDITPROFILE_MUTATION = gql`
   ) {
     editProfile(
       data: {
+        name: $name
         bio: $bio
         location: $location
         website: $website
         avatar: $avatar
       }
     ) {
+      avatar
+      name
       bio
       location
       website
@@ -58,14 +62,16 @@ const validationSchemaGenerate = (lang: string) =>
       .string()
       .max(50, translation[lang].editProfile.errors.max)
       .required(translation[lang].editProfile.errors.required),
-    bio: yup.string().max(160, translation[lang].editProfile.errors.max),
+    bio: yup.string().max(160, translation[lang].editProfile.errors.max).nullable(),
     location: yup
       .string()
-      .max(30, translation[lang].editProfile.errors.max),
+      .max(30, translation[lang].editProfile.errors.max)
+      .nullable(),
     website: yup
       .string()
-      .max(30, translation[lang].editProfile.errors.max),
-    avatar: yup.string(),
+      .max(30, translation[lang].editProfile.errors.max)
+      .nullable(),
+    avatar: yup.string().nullable(),
   })
 
 const EditProfile: FC<EditProfileProps> = ({ className, title }) => {
@@ -82,13 +88,6 @@ const EditProfile: FC<EditProfileProps> = ({ className, title }) => {
     },
   )
 
-  const initialValues: ProfileValues = {
-    name: user.name || '',
-    bio: user?.profile?.bio || '',
-    location: user?.profile?.location || '',
-    website: user?.profile?.website || '',
-    avatar: user?.profile?.avatar || '',
-  }
   const [disabled, setDisabled] = useState(true)
   const [image, setImage] = useState(user?.profile?.avatar)
   const [imageLoading, setImageLoading] = useState(false)
@@ -105,7 +104,7 @@ const EditProfile: FC<EditProfileProps> = ({ className, title }) => {
     formState: { errors },
   } = useForm<FormValues>({
     resolver: yupResolver(validationSchema),
-    defaultValues: initialValues,
+    defaultValues: user.profile,
   })
 
   const uploadImage = async (e: ChangeEvent<HTMLInputElement>) => {
@@ -136,8 +135,8 @@ const EditProfile: FC<EditProfileProps> = ({ className, title }) => {
     setDisabled(true) 
   }
   const onChange: SubmitHandler<FormValues> = (data) => {
-    setDisabled(_.isEqual({...data, avatar:image}, initialValues))
-    console.log({...data, avatar: image, initialValues})
+    setDisabled(_.isEqual({...data, avatar:image}, user.profile))
+    console.log({...data, avatar: image}, user.profile)
   }
   return (
     <>

@@ -4,7 +4,9 @@ interface Translation {
       signup: string
       login: string
       email: string
+      userOrEmail: string
       name: string
+      username: string
       password: string
       passwordConf: string
       haveAccount: string
@@ -13,6 +15,8 @@ interface Translation {
       emailMsg: string
       passwordMaxMessage: string
       passwordConfMsg: string
+      usernameOrEmailMsg: string
+      noConnectionMsg: string
     }
     landing: {
       mottos: {
@@ -86,6 +90,8 @@ export const translation: Translation = {
   eng: {
     form: {
       signup: 'Sign up',
+      username: 'Username',
+      userOrEmail: 'Username or Email',
       login: 'Log in',
       email: 'Email',
       name: 'Name',
@@ -97,6 +103,8 @@ export const translation: Translation = {
       emailMsg: 'Invalid email address',
       passwordMaxMessage: 'Must be 20 characters or less',
       passwordConfMsg: 'Password must match',
+      usernameOrEmailMsg: 'Username or Email is exsited',
+      noConnectionMsg: 'Could not connect to the server',
     },
     landing: {
       mottos: {
@@ -156,6 +164,8 @@ export const translation: Translation = {
   ir: {
     form: {
       signup: 'ثبت نام',
+      username: 'نام کاربری',
+      userOrEmail: 'نام کاربری یا پست الکترونیکی',
       login: 'ورود',
       email: 'پست الکترونیک',
       name: 'نام',
@@ -167,6 +177,8 @@ export const translation: Translation = {
       emailMsg: 'آدرس ایمیل صحیح نیست',
       passwordMaxMessage: 'کلمه عبور باید ۲۰ کاراکتر و یا کمتر باشد',
       passwordConfMsg: 'کلمه عبور متفاوت است',
+      usernameOrEmailMsg: 'نام کاربری یا ایمیل موجود است',
+      noConnectionMsg: 'خطلا در ارتباط با سرور',
     },
     landing: {
       mottos: {

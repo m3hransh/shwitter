@@ -4,17 +4,18 @@ import { createContext, useContext } from 'react'
 export interface AuthContextType {
   user: User
   signup: (user: Omit<User, 'id'>) => Promise<User | undefined>
-  login: (user: Omit<User, 'id' | 'name'>) => Promise<User | undefined>
+  login: (user: Omit<User, 'id' | 'username'>) => Promise<User | undefined>
   getCurrentUser: () => Promise<void>
   logout: () => void
   state: State
 }
 
 export interface User {
-  id: number
-  name: string
+  id?: number
+  username: string
   email: string
   profile?: {
+    name: string
     avatar: string
     bio: string
     location: string

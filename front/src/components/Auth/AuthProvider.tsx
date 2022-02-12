@@ -7,13 +7,20 @@ export interface AuthProviderProps {
 }
 
 const SIGNUP_MUTATION = gql`
-  mutation Signup($name: String!, $email: String!, $password: String!) {
-    signup(name: $name, email: $email, password: $password) {
+  mutation Signup($name: String!, $email: String!, $password: String!, $username: String!) {
+    signup(name: $name, email: $email, password: $password, username:$username) {
       token
       user {
         id
-        name
+        username
         email
+        profile {
+          avatar
+          bio
+          location
+          website
+          createdAt
+        }
       }
     }
   }
@@ -24,8 +31,16 @@ const LOGIN_MUTATION = gql`
       token
       user {
         id
-        name
+        username
         email
+        profile {
+          name
+          avatar
+          bio
+          location
+          website
+          createdAt
+        }
       }
     }
   }
@@ -34,9 +49,10 @@ export const ME_QUERY = gql`
   query Me {
     me {
       id
-      name
+      username
       email
       profile {
+        name
         avatar
         bio
         location
@@ -77,7 +93,7 @@ const AuthProvider: FC<AuthProviderProps> = ({ children }) => {
   const [loginMutate, loginState] =
     useMutation<{ login: UserData }>(LOGIN_MUTATION)
 
-  const login = async (newUser: Omit<User, 'id' | 'name'>) => {
+  const login = async (newUser: Omit<User, 'id' | 'username'>) => {
     const { data, errors } = await loginMutate({
       variables: newUser,
     })

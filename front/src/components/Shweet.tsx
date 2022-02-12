@@ -19,8 +19,11 @@ const SHWEET_MUTATION = gql`
       updatedAt
       content
       author {
-        id
-        name
+        username
+        profile{
+          avatar
+          name
+        } 
       }
     }
   }

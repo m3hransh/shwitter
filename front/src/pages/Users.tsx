@@ -10,7 +10,7 @@ export const USERS_QUERY = gql`
     allUsers {
       users {
         id
-        name
+        username
         email
       }
       count
@@ -21,7 +21,7 @@ export interface AllUsers {
   allUsers: {
     users: {
       id: string
-      name: string
+      username: string
       email: string
     }[]
     count: number
@@ -43,10 +43,10 @@ const Users: FC<UsersProps> = () => {
           <div className="bg-background-500">نام</div>
           <div className="bg-background-500">ایمیل</div>
         </div>
-        {data.allUsers.users.map(({ id, name, email }) => (
+        {data.allUsers.users.map(({ id, username, email }) => (
           <div key={id} className="grid grid-cols-3 gap-y-2">
             <div className="">{id}</div>
-            <div className="">{name}</div>
+            <div className="">{username}</div>
             <div className="">{email}</div>
           </div>
         ))}

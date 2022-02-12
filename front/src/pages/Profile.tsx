@@ -34,7 +34,7 @@ const Profile: FC<ProfileProps> = () => {
             />
           </div>
           {/* NickName */}
-          <h3 className="text-xl font-bold">{user.name}</h3>
+          <h3 className="text-xl font-bold">{user.profile?.name}</h3>
         </div>
         {/* Profile Body */}
         <div className="bg-slate-600 h-48 w-full"></div>
@@ -66,7 +66,7 @@ const Profile: FC<ProfileProps> = () => {
             {/*   /> */}
             {/* )} */}
           </div>
-          <h3 className="text-xl font-bold">{user.name}</h3>
+          <h3 className="text-xl font-bold">{user.profile?.name}</h3>
           {user?.profile?.bio ? (
             <p className="mt-3 space-x-2">{user.profile.bio}</p>
           ) : null}
