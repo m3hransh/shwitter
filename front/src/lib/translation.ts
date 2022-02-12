@@ -17,6 +17,7 @@ interface Translation {
       passwordConfMsg: string
       usernameOrEmailMsg: string
       noConnectionMsg: string
+      noEmailMsg: string
     }
     landing: {
       mottos: {
@@ -105,6 +106,7 @@ export const translation: Translation = {
       passwordConfMsg: 'Password must match',
       usernameOrEmailMsg: 'Username or Email is exsited',
       noConnectionMsg: 'Could not connect to the server',
+      noEmailMsg: 'Your email isn\' registered'
     },
     landing: {
       mottos: {
@@ -179,6 +181,7 @@ export const translation: Translation = {
       passwordConfMsg: 'کلمه عبور متفاوت است',
       usernameOrEmailMsg: 'نام کاربری یا ایمیل موجود است',
       noConnectionMsg: 'خطلا در ارتباط با سرور',
+      noEmailMsg: 'پست الکترونیکی ثبت نشده!'
     },
     landing: {
       mottos: {

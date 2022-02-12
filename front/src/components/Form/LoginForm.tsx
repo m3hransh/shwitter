@@ -5,7 +5,7 @@ import { translation } from '../../lib/translation'
 import ShwitterLogo from '../../assets/silent-crow.png'
 import ErrorMessage from './ErrorMessage'
 
-import { FC, ReactElement } from 'react'
+import { FC, ReactElement, useState } from 'react'
 import { Link, useLocation, useNavigate } from 'react-router-dom'
 import { useAuth } from '../Auth'
 import cn from 'classnames'
@@ -30,6 +30,7 @@ const LoginForm: FC<LoginFormProps> = () => {
   const location = useLocation()
   const navigate = useNavigate()
   const { login, state } = useAuth()
+  const [globalError, setGlobalError] = useState(false)
 
   const locState = location.state as { from: { pathname: string } }
   const from = locState?.from?.pathname || '/'
@@ -48,9 +49,18 @@ const LoginForm: FC<LoginFormProps> = () => {
   })
 
   const onSubmit: SubmitHandler<FormValues> = async (loginUser) => {
+    try{
+
     const user = await login(loginUser)
+    if (!user)
+      setGlobalError(true)
     if (user?.email === loginUser.email) {
       navigate(from, { replace: true })
+    }
+    }
+    catch(e){
+      setGlobalError(true)
+
     }
   }
   return (
@@ -88,6 +98,7 @@ const LoginForm: FC<LoginFormProps> = () => {
           <ErrorMessage>
             {state?.error && "Couldn't connect"}
           </ErrorMessage>
+          <ErrorMessage>{globalError ?translation[lang].form.noEmailMsg: null}</ErrorMessage>
           {state?.loading && <p>Loadding</p>}
         </form>
         <div className="mt-14">
