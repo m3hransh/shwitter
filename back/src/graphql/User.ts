@@ -4,7 +4,7 @@ export const User = objectType({
   name: 'User',
   definition(t) {
     t.nonNull.int('id')
-    t.nonNull.string('name')
+    t.nonNull.string('username')
     t.nonNull.string('email')
     t.nonNull.list.nonNull.field('shweets', {
       type: 'Shweet',
@@ -52,7 +52,7 @@ export const UserQuery = extendType({
         const where = args.filter
           ? {
               OR: [
-                { name: { contains: args.filter } },
+                { username: { contains: args.filter } },
                 { email: { contains: args.filter } },
               ],
             }

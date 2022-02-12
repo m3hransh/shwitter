@@ -38,7 +38,7 @@ type Mutation {
   like(shweetId: Int!): LikedShweet
   login(email: String!, password: String!): AuthPayload!
   shweet(content: String!): Shweet!
-  signup(email: String!, name: String!, password: String!): AuthPayload!
+  signup(email: String!, name: String!, password: String!, username: String!): AuthPayload!
   updateShweet(content: String!, id: Int!): Shweet!
 }
 
@@ -47,6 +47,7 @@ type Profile {
   bio: String
   createdAt: DateTime
   location: String
+  name: String
   userId: Int!
   website: String
 }
@@ -55,6 +56,7 @@ input ProfileInput {
   avatar: String
   bio: String
   location: String
+  name: String!
   website: String
 }
 
@@ -86,7 +88,7 @@ enum Sort {
 type User {
   email: String!
   id: Int!
-  name: String!
   profile: Profile
   shweets: [Shweet!]!
+  username: String!
 }

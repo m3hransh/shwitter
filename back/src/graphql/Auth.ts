@@ -21,15 +21,25 @@ export const AuthMutation = extendType({
       args: {
         email: nonNull(stringArg()),
         password: nonNull(stringArg()),
+        username: nonNull(stringArg()),
         name: nonNull(stringArg()),
       },
       async resolve(_root, args, ctx) {
-        const { email, name } = args
+        const { email, username, name } = args
 
         const password = await bcrypt.hash(args.password, 10)
 
         const user = await ctx.prisma.user.create({
-          data: { email, name, password },
+          data: {
+            email,
+            username,
+            password,
+            profile: {
+              create:{
+               name: name 
+              } 
+            },
+          },
         })
 
         const token = jwt.sign({ userId: user.id }, APP_SECRET)

@@ -15,12 +15,14 @@ export const Profile = objectType({
     t.string('bio')
     t.string('location')
     t.string('website')
+    t.string('name')
   },
 })
 
 export const ProfileInput = inputObjectType({
   name: 'ProfileInput',
   definition(t) {
+    t.nonNull.string('name')
     t.string('bio')
     t.string('location')
     t.string('website')
@@ -51,12 +53,14 @@ export const ProfileMutation = extendType({
             userId
           },
           update:{
+            name: args.data.name,
             bio: args.data.bio,
             location: args.data.location,
             website: args.data.website,
             avatar: args.data.avatar,
           },
           create: {
+            name: args.data.name,
             bio: args.data.bio,
             location: args.data.location,
             website: args.data.website,

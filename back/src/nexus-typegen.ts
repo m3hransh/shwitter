@@ -33,6 +33,7 @@ export interface NexusGenInputs {
     avatar?: string | null; // String
     bio?: string | null; // String
     location?: string | null; // String
+    name: string; // String!
     website?: string | null; // String
   }
   ShweetOrderByInput: { // input type
@@ -78,6 +79,7 @@ export interface NexusGenObjects {
     bio?: string | null; // String
     createdAt?: NexusGenScalars['DateTime'] | null; // DateTime
     location?: string | null; // String
+    name?: string | null; // String
     userId: number; // Int!
     website?: string | null; // String
   }
@@ -91,7 +93,7 @@ export interface NexusGenObjects {
   User: { // root type
     email: string; // String!
     id: number; // Int!
-    name: string; // String!
+    username: string; // String!
   }
 }
 
@@ -139,6 +141,7 @@ export interface NexusGenFieldTypes {
     bio: string | null; // String
     createdAt: NexusGenScalars['DateTime'] | null; // DateTime
     location: string | null; // String
+    name: string | null; // String
     userId: number; // Int!
     website: string | null; // String
   }
@@ -158,9 +161,9 @@ export interface NexusGenFieldTypes {
   User: { // field return type
     email: string; // String!
     id: number; // Int!
-    name: string; // String!
     profile: NexusGenRootTypes['Profile'] | null; // Profile
     shweets: NexusGenRootTypes['Shweet'][]; // [Shweet!]!
+    username: string; // String!
   }
 }
 
@@ -198,6 +201,7 @@ export interface NexusGenFieldTypeNames {
     bio: 'String'
     createdAt: 'DateTime'
     location: 'String'
+    name: 'String'
     userId: 'Int'
     website: 'String'
   }
@@ -217,9 +221,9 @@ export interface NexusGenFieldTypeNames {
   User: { // field return type name
     email: 'String'
     id: 'Int'
-    name: 'String'
     profile: 'Profile'
     shweets: 'Shweet'
+    username: 'String'
   }
 }
 
@@ -245,6 +249,7 @@ export interface NexusGenArgTypes {
       email: string; // String!
       name: string; // String!
       password: string; // String!
+      username: string; // String!
     }
     updateShweet: { // args
       content: string; // String!
