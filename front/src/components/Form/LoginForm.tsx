@@ -64,7 +64,7 @@ const LoginForm: FC<LoginFormProps> = () => {
     }
   }
   return (
-    <div dir="rtl" className=" max-w-lg mx-auto w-3/4">
+    <div dir="rtl" className=" max-w-lg mx-auto">
       <div className="flex flex-col items-center text-center p-8">
         <img src={ShwitterLogo} alt="logo" className="w-40" />
         <h1 className="text-2xl font-bold ">
@@ -101,7 +101,7 @@ const LoginForm: FC<LoginFormProps> = () => {
           <ErrorMessage>{globalError ?translation[lang].form.noEmailMsg: null}</ErrorMessage>
           {state?.loading && <p>Loadding</p>}
         </form>
-        <div className="mt-14">
+        <div className="mt-2">
           <h4 className="font-bold">{translation[lang].form.noAccount}</h4>
           <Link className="text-main-500 font-medium" to="/signup">
             {translation[lang].form.signup}
