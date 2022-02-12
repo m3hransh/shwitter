@@ -22,7 +22,7 @@ model Shweet {
 
 model User {
   id           Int           @id @default(autoincrement())
-  name         String
+  username     String        @unique
   email        String        @unique
   password     String
   shweets      Shweet[]      @relation("Author")
@@ -31,13 +31,14 @@ model User {
 }
 
 model Profile {
-  userId    Int    @id
+  userId    Int      @id
   createdAt DateTime @default(now())
+  name      String
   avatar    String?
   bio       String?
   location  String?
   website   String?
-  user      User   @relation(fields: [userId], references: [id])
+  user      User     @relation(fields: [userId], references: [id])
 }
 
 model LikedShweet {
