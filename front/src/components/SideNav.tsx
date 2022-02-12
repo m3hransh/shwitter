@@ -5,12 +5,14 @@ import {
   IoMailOutline,
   IoHomeOutline,
   IoPersonOutline,
+  IoPeopleOutline,
 } from 'react-icons/io5'
 import { Link } from 'react-router-dom'
 import favicon from '../assets/shwitter-logo.png'
 import { translation } from '../lib/translation'
 import Logout from './Logout'
 import Modal from './Modal'
+import Shweet from './Shweet'
 // import Tweet from './Tweet';
 
 const SideNav: FC = () => {
@@ -42,32 +44,38 @@ const SideNav: FC = () => {
             </span>
           </h2>
         </Link>
-        <Link to="#" className="rounded-3xl p-2 dark:hover:bg-background-600 hover:bg-background-100">
-          <h2>
-            <IoMailOutline className="inline text-2xl mx-3" />
-            <span className="hidden lg:inline-block">
-              {content.messages}
-            </span>
-          </h2>
-        </Link>
-        <Link to="#" className="rounded-3xl p-2 dark:hover:bg-background-600 hover:bg-background-100">
-          <h2>
-            <IoNotificationsOutline className="inline text-2xl mx-3" />
-            <span className="hidden lg:inline-block">
-              {content.notifications}
-            </span>
-          </h2>
-        </Link>
+        {/* <Link to="#" className="rounded-3xl p-2 dark:hover:bg-background-600 hover:bg-background-100"> */}
+        {/*   <h2> */}
+        {/*     <IoMailOutline className="inline text-2xl mx-3" /> */}
+        {/*     <span className="hidden lg:inline-block"> */}
+        {/*       {content.messages} */}
+        {/*     </span> */}
+        {/*   </h2> */}
+        {/* </Link> */}
+        {/* <Link to="#" className="rounded-3xl p-2 dark:hover:bg-background-600 hover:bg-background-100"> */}
+        {/*   <h2> */}
+        {/*     <IoNotificationsOutline className="inline text-2xl mx-3" /> */}
+        {/*     <span className="hidden lg:inline-block"> */}
+        {/*       {content.notifications} */}
+        {/*     </span> */}
+        {/*   </h2> */}
+        {/* </Link> */}
+        {/* <Link to="#" className="rounded-3xl p-2 dark:hover:bg-background-600 hover:bg-background-100"> */}
+        {/*   <h2> */}
+        {/*     <IoEllipsisHorizontalOutline className="inline text-2xl mx-3" /> */}
+        {/*     <span className="hidden lg:inline-block">{content.more}</span> */}
+        {/*   </h2> */}
+        {/* </Link> */}
         <Link to="/users" className="rounded-3xl p-2 dark:hover:bg-background-600 hover:bg-background-100">
           <h2>
-            <IoEllipsisHorizontalOutline className="inline text-2xl mx-3" />
-            <span className="hidden lg:inline-block">{content.more}</span>
+            <IoPeopleOutline className="inline text-2xl mx-3" />
+            <span className="hidden lg:inline-block ">{content.more}</span>
           </h2>
         </Link>
       </div>
       <button
         className="bg-primary-400 mx-auto mt-4 border-0 border-primary rounded-3xl 
-      py-2 w-11/12 text-white text-lg font-bold hover:bg-primary-200
+      py-2 w-10/12 text-white text-lg font-bold hover:bg-primary-200
       hidden lg:block 
       "
         onClick={openModal}
@@ -75,7 +83,7 @@ const SideNav: FC = () => {
         {content.shweet}
       </button>
       <Modal modalIsOpen={modalIsOpen} closeModal={closeModal}>
-        {/* <Tweet onTweet={closeModal} /> */}
+        <Shweet className="w-full" />
       </Modal>
       <Logout className="mt-auto mb-3" />
     </div>

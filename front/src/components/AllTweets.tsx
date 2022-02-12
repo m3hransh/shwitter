@@ -1,12 +1,6 @@
 import { gql } from '@apollo/client'
 import { FC, ReactElement } from 'react'
 import { User } from './Auth'
-import {
-  differenceInDays,
-  differenceInYears,
-  format,
-  formatDistanceToNowStrict,
-} from 'date-fns'
 import Loading from '../components/Loading'
 import { FaEllipsisH } from 'react-icons/fa'
 import {
@@ -17,6 +11,7 @@ import {
   IoPersonCircleOutline,
 } from 'react-icons/io5'
 import { useQuery } from '@apollo/client'
+import { dateView } from '../lib/utils'
 
 export interface AllTweetsProps {
   children?: ReactElement
@@ -61,14 +56,6 @@ export interface Feed {
       }[]
     }[]
   }
-}
-const dateView = (date: string) => {
-  let currentDate = new Date(date)
-  if (differenceInDays(new Date(), currentDate) < 1)
-    return formatDistanceToNowStrict(currentDate)
-  else if (differenceInYears(new Date(), currentDate) < 1)
-    return format(currentDate, 'LLL d')
-  else return format(currentDate, 'LLL d, y')
 }
 const AllTweets: FC<AllTweetsProps> = ({ className }) => {
   const { loading, error, data } = useQuery<Feed>(FEED_QUERY)

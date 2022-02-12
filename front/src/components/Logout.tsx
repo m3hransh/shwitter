@@ -124,7 +124,7 @@ const Logout: FC<LogoutProps> = ({ className }) => {
             <div>
               <IoPersonCircleOutline className="inline w-14 h-14" />
               {/* )} */}
-              <h3 className="font-bold hidden lg:inline">{user.profile?.name}</h3>
+              <h3 className="font-bold hidden lg:inline">{user.profile?.name && user.profile.name.length > 10 ? `${user.profile?.name}...`: user.profile?.name}</h3>
             </div>
             <div className="mr-auto">
               <IoEllipsisHorizontalOutline className="hidden text-2xl lg:inline" />

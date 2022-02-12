@@ -5,6 +5,9 @@ import {
   IoMailOutline,
   IoHomeOutline,
   IoSearchOutline,
+  IoLogoGithub,
+  IoPersonOutline,
+  IoPeopleOutline,
 } from 'react-icons/io5'
 import cn from 'classnames'
 
@@ -28,17 +31,17 @@ const MobileNav: FC<MobileNavProps> = ({ className }) => {
       </Link>
       <Link to="/profile" className="rounded-3xl p-2 hover:bg-accent">
         <h2>
-          <IoSearchOutline className="inline text-2xl mx-3" />
+          <IoPersonOutline className="inline text-2xl mx-3" />
         </h2>
       </Link>
-      <Link to="#" className="rounded-3xl p-2 hover:bg-accent">
+      <Link to="/users" className="rounded-3xl p-2 hover:bg-accent">
         <h2>
-          <IoNotificationsOutline className="inline text-2xl mx-3" />
+          <IoPeopleOutline className="inline text-2xl mx-3" />
         </h2>
       </Link>
-      <Link to="#" className="rounded-3xl p-2 hover:bg-accent">
+      <Link to="#" className=" p-2 bg-background-900">
         <h2>
-          <IoMailOutline className="inline text-2xl mx-3" />
+          <IoLogoGithub className="inline text-2xl text-main-50 mx-3" />
         </h2>
       </Link>
     </div>

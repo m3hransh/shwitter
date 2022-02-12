@@ -3,16 +3,16 @@ import {
   ApolloProvider,
   HttpLink,
   InMemoryCache,
-  from
+  from,
 } from '@apollo/client'
 import { setContext } from '@apollo/client/link/context'
-import { onError } from "@apollo/client/link/error";
+import { onError } from '@apollo/client/link/error'
 import { BrowserRouter, Route, Routes } from 'react-router-dom'
 import { RequiredAuth, AuthProvider } from './components/Auth'
 import Home from './pages/Home'
 import Landing from './pages/Landing'
 import Login from './pages/Login'
-import Profile from './pages/Profile';
+import Profile from './pages/Profile'
 import Root from './pages/Root'
 import Signup from './pages/Signup'
 import Users from './pages/Users'
@@ -20,14 +20,15 @@ import Users from './pages/Users'
 // default value in dev environment
 let GRAPHQL_URL = 'http://localhost:4000'
 
-if (process.env?.REACT_APP_GRAPHQL_URL){
+if (process.env?.REACT_APP_GRAPHQL_URL) {
   GRAPHQL_URL = process.env?.REACT_APP_GRAPHQL_URL
+} else {
+  if (process.env.NODE_ENV === 'production')
+    throw new Error(
+      'Please Provide the REACT_APP_GRAPHQL_URL in file "front/.env"',
+    )
 }
-else{
-  if(process.env.NODE_ENV === 'production')
-    throw new Error('Please Provide the REACT_APP_GRAPHQL_URL in file "front/.env"')
-}
-  
+
 const httpLink = new HttpLink({
   uri: GRAPHQL_URL,
 })
@@ -38,11 +39,10 @@ const errorLink = onError(({ graphQLErrors, networkError }) => {
       console.log(
         `[GraphQL error]: Message: ${message}, Location: ${locations}, Path: ${path}`,
       ),
-    );
+    )
 
-  if (networkError) console.log(`[Network error]: ${networkError}`);
-});
-
+  if (networkError) console.log(`[Network error]: ${networkError}`)
+})
 
 const authLink = setContext((_, { headers }) => {
   // get the authentication token from local storage if it exists
@@ -57,7 +57,7 @@ const authLink = setContext((_, { headers }) => {
 })
 
 const client = new ApolloClient({
-  link:from([errorLink, authLink, httpLink]),
+  link: from([errorLink, authLink, httpLink]),
   cache: new InMemoryCache(),
 })
 
@@ -87,7 +87,14 @@ function App() {
               <Route path="landing" element={<Landing />} />
               <Route path="signup" element={<Signup />} />
               <Route path="login" element={<Login />} />
-              <Route path="users" element={<Users />} />
+              <Route
+                path="users"
+                element={
+                  <RequiredAuth>
+                    <Users />
+                  </RequiredAuth>
+                }
+              />
             </Route>
           </Routes>
         </BrowserRouter>
