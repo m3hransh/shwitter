@@ -36,7 +36,28 @@ In this project, we take the schema-first approach, meaning first we create the 
 back-end and front-end will communicate. Here is the first draft of the schema:
 
 ```graphql
-# GraphQL Schema
+
+type Query {
+  allUsers(data: FilterInputType): AllUsers!
+  feed(filter: String, orderBy: [ShweetOrderByInput!], skip: Int, take: Int): Feed!
+  me: User
+}
+
+type Mutation {
+  deleteShweet(id: Int!): Shweet!
+  editProfile(data: ProfileInput!): Profile
+  like(shweetId: Int!): LikedShweet
+  login(email: String!, password: String!): AuthPayload!
+  shweet(content: String!): Shweet!
+  signup(email: String!, name: String!, password: String!, username: String!): AuthPayload!
+  updateShweet(content: String!, id: Int!): Shweet!
+}
+
+type Feed {
+  count: Int!
+  shweets: [Shweet!]!
+}
+
 type LikedShweet {
   likedAt: DateTime!
   shweet: Shweet
@@ -45,19 +66,14 @@ type LikedShweet {
   userId: Int!
 }
 
-type Mutation {
-  deleteShweet(id: Int!): Shweet!
-  like(shweetId: Int!): LikedShweet
-  login(email: String!, password: String!): AuthPayload!
-  shweet(content: String!): Shweet!
-  signup(email: String!, name: String!, password: String!): AuthPayload!
-  updateShweet(content: String!, id: Int!): Shweet!
-}
-
-type Query {
-  allUsers(filter: String, skip: Int, take: Int): AllUsers!
-  feed(filter: String, orderBy: [ShweetOrderByInput!], skip: Int, take: Int): Feed!
-  me: User
+type Profile {
+  avatar: String
+  bio: String
+  createdAt: DateTime
+  location: String
+  name: String
+  userId: Int!
+  website: String
 }
 
 type Shweet {
@@ -69,27 +85,19 @@ type Shweet {
   updatedAt: DateTime!
 }
 
-input ShweetOrderByInput {
-  content: Sort
-  createdAt: Sort
-}
-
 type User {
   email: String!
   id: Int!
-  name: String!
+  profile: Profile
   shweets: [Shweet!]!
-}
-
-type Feed {
-  count: Int!
-  shweets: [Shweet!]!
+  username: String!
 }
 
 enum Sort {
   asc
   desc
 }
+
 ```
 
 ## Getting started
@@ -119,6 +127,8 @@ yarn start
 ```
 Now you should see the browser staring at [http://localhost:3000](http://localhost:3000)
 
+>optional: To support image upload you need create a cloudinary account and set up unauthorized preset for your cloud path
+<!-- provide link for the tutorial-->
 ## Project showcase
 ![landing page preview](images/landing_preview.png)
 
@@ -126,9 +136,9 @@ Now you should see the browser staring at [http://localhost:3000](http://localho
 - [x] Create CI/CD for the front and back
 - [x] Signup and Login page
 - [x] Adding GraphQL Schema
-- [ ] User can change their profile info
-- [ ] Connection to cloudinary
-- [ ] Users can shwit
+- [x] User can change their profile info
+- [x] Connection to cloudinary
+- [x] Users can shwit
 - [ ] Unit test for Front
 - [ ] Unit test for back
 
