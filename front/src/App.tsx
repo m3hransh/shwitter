@@ -15,7 +15,7 @@ import Login from './pages/Login'
 import Profile from './pages/Profile'
 import Root from './pages/Root'
 import Signup from './pages/Signup'
-import Users from './pages/Users'
+import UsersPage from './pages/UsersPage'
 
 // default value in dev environment
 let GRAPHQL_URL = 'http://localhost:4000'
@@ -91,7 +91,7 @@ function App() {
                 path="users"
                 element={
                   <RequiredAuth>
-                    <Users />
+                    <UsersPage />
                   </RequiredAuth>
                 }
               />

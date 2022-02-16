@@ -2,12 +2,8 @@ import React, { FC } from 'react';
 import { FaEllipsisH } from 'react-icons/fa';
 import { IoSettingsOutline } from 'react-icons/io5';
 import { translation } from '../lib/translation';
+import { TrendElement } from '../types';
 
-interface TrendElement {
-  category: string;
-  name: string;
-  tweetNumber: number;
-}
 const trendsItem: TrendElement[] = [
   {
     category: 'تجاری',

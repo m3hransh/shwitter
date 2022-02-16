@@ -4,8 +4,9 @@ import Layout from '../components/Layout'
 import { IoPersonCircleOutline } from 'react-icons/io5'
 import { dateView } from '../lib/utils'
 import Loading from '../components/Loading'
+import { Users } from '../types'
 
-export interface UsersProps {
+export interface UsersPageProps {
   children?: ReactElement
 }
 
@@ -26,23 +27,8 @@ export const USERS_QUERY = gql`
     }
   }
 `
-export interface AllUsers {
-  allUsers: {
-    users: {
-      id: string
-      username: string
-      email: string
-      profile: {
-        name: string
-        avatar: string
-        createdAt: string
-      }
-    }[]
-    count: number
-  }
-}
-const Users: FC<UsersProps> = () => {
-  const { loading, data } = useQuery<AllUsers>(USERS_QUERY)
+const UsersPage: FC<UsersPageProps> = () => {
+  const { loading, data } = useQuery<Users>(USERS_QUERY)
 
   return (
     <Layout>
@@ -54,7 +40,7 @@ const Users: FC<UsersProps> = () => {
             <div key={user.id} className="hover:bg-accent">
               <div className="flex  items-center gap-2 p-3">
                 <div className="flex-grow-0">
-                  {user.profile.avatar ? (
+                  {user?.profile?.avatar ? (
                     <img
                       src={user.profile.avatar}
                       className="w-14 h-14 rounded-full"
@@ -67,7 +53,7 @@ const Users: FC<UsersProps> = () => {
                 {user.profile?.name}
                 <div className="text-gray-500 flex gap-2 text-sm">
                   <div dir="ltr">{`@${user.username}`}</div>
-                  <div>{dateView(user.profile.createdAt)}</div>
+                  <div>{user?.profile?.createdAt && dateView(user.profile.createdAt)}</div>
                 </div>
               </div>
               <div className="bottom-0 h-px dark:bg-background-600 bg-background-200" />
@@ -78,4 +64,4 @@ const Users: FC<UsersProps> = () => {
     </Layout>
   )
 }
-export default Users
+export default UsersPage

@@ -152,14 +152,13 @@ const MobileSideBar: FC<MobileSideBarProps> = (props) => {
                 >
                   {translation[lang].logout.addAccount}
                 </Link>
-                <a
-                  href="#pablo"
+                <button
                   className="text-sm py-3 px-4 font-normal block w-full 
                   whitespace-nowrap hover:bg-background-500"
                   onClick={logout}
                 >
                   {`${translation[lang].logout.exit} @${user.username}`}
-                </a>
+                </button>
               </div>
         </Transition.Child>
         <div className="flex-shrink-0 w-14">

@@ -7,6 +7,7 @@ import {
 import { useAuth } from './Auth'
 import { Transition } from '@tailwindui/react'
 import { translation } from '../lib/translation'
+import { Link } from 'react-router-dom'
 
 interface LogoutProps {
   className?: string
@@ -91,22 +92,20 @@ const Logout: FC<LogoutProps> = ({ className }) => {
                   className="h-0 border border-solid border-t-0
                 border-blueGray-800 "
                 />
-                <a
-                  href="#pablo"
+                <Link
+                  to="/signup"
                   className="text-sm py-3 px-4 font-normal block w-full 
                   whitespace-nowrap hover:bg-background-500"
-                  onClick={(e) => e.preventDefault()}
                 >
                   {translation[lang].logout.addAccount}
-                </a>
-                <a
-                  href="#pablo"
+                </Link>
+                <button
                   className="text-sm py-3 px-4 font-normal block w-full 
                   whitespace-nowrap hover:bg-background-500"
                   onClick={logout}
                 >
                   {`${translation[lang].logout.exit} @${user.username}`}
-                </a>
+                </button>
               </div>
             </div>
           </Transition>

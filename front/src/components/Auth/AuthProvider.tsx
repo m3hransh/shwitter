@@ -1,6 +1,8 @@
 import { gql, useLazyQuery, useMutation } from '@apollo/client'
 import { FC, ReactElement, useState } from 'react'
-import { AuthContext, State, User, UserData } from './index'
+import { AuthContext } from '.'
+import { AuthPayload, AuthState, User } from '../../types'
+
 
 export interface AuthProviderProps {
   children?: ReactElement
@@ -63,15 +65,15 @@ export const ME_QUERY = gql`
     }
   }
 `
-const initialState: State = {
+const initialState: AuthState = {
   called: false,
 }
 const AuthProvider: FC<AuthProviderProps> = ({ children }) => {
   const [user, setUser] = useState<User>(null!)
-  const [state, setState] = useState<State>(initialState)
+  const [state, setState] = useState<AuthState>(initialState)
 
   const [signupMutate, signupState] =
-    useMutation<{ signup: UserData }>(SIGNUP_MUTATION)
+    useMutation<{ signup: AuthPayload }>(SIGNUP_MUTATION)
 
   const signup = async (newUser: Omit<User, 'id'>) => {
     const { data, errors } = await signupMutate({
@@ -92,7 +94,7 @@ const AuthProvider: FC<AuthProviderProps> = ({ children }) => {
   }
 
   const [loginMutate, loginState] =
-    useMutation<{ login: UserData }>(LOGIN_MUTATION)
+    useMutation<{ login: AuthPayload }>(LOGIN_MUTATION)
 
   const login = async (newUser: Omit<User, 'id' | 'username'>) => {
     const { data, errors } = await loginMutate({
