@@ -43,16 +43,18 @@ export interface User {
   id?: number
   username: string
   email: string
-  profile?: {
-    name: string
-    avatar: string
-    bio: string
-    location: string
-    website: string
-    createdAt: string
-  }
+  profile?: Profile
+  shweets?: Shweet[]
 }
 
+export interface Profile {
+  name: string
+  createdAt: string
+  avatar?: string
+  bio?: string
+  location?: string
+  website?: string
+}
 export interface Users {
   allUsers: {
     users: User[]
@@ -61,7 +63,7 @@ export interface Users {
 }
 
 export interface TrendElement {
-  category: string;
-  name: string;
-  tweetNumber: number;
+  category: string
+  name: string
+  tweetNumber: number
 }

@@ -60,6 +60,7 @@ interface Translation {
       editButton: string
       follower: string
       following: string
+      shweets: string
     }
     editProfile: {
       title: string
@@ -149,6 +150,7 @@ export const translation: Translation = {
       editButton: 'Edit profile',
       follower: 'follower',
       following: 'following',
+      shweets: 'Shweets',
     },
     editProfile: {
       title: 'Edit profile',
@@ -225,6 +227,7 @@ export const translation: Translation = {
       editButton: 'ویرایش',
       follower: 'دنبال کننده',
       following: 'دنبال کردن',
+      shweets: 'شوییت‌ها'
     },
     editProfile: {
       title: 'ویرایش پروفایل',

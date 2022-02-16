@@ -105,7 +105,7 @@ const MobileSideBar: FC<MobileSideBarProps> = (props) => {
                   </h2>
                 </Link>
                 <Link
-                  to="/profile"
+                  to={`/${user.username}`}
                   className="rounded-3xl p-2 hover:bg-background-100 dark:hover:bg-background-600"
                 >
                   <h2>

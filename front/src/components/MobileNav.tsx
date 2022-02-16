@@ -7,6 +7,7 @@ import {
   IoPeopleOutline,
 } from 'react-icons/io5'
 import cn from 'classnames'
+import { useAuth } from './Auth'
 
 export interface MobileNavProps {
   children?: ReactElement
@@ -14,6 +15,7 @@ export interface MobileNavProps {
 }
 
 const MobileNav: FC<MobileNavProps> = ({ className }) => {
+  const {user} = useAuth()
   return (
     <div
       className={cn(
@@ -26,7 +28,10 @@ const MobileNav: FC<MobileNavProps> = ({ className }) => {
           <IoHomeOutline className="inline text-2xl mx-3" />
         </h2>
       </Link>
-      <Link to="/profile" className="rounded-3xl p-2 hover:bg-accent">
+      <Link
+        to={`/${user.username}`}
+        className="rounded-3xl p-2 hover:bg-accent"
+      >
         <h2>
           <IoPersonOutline className="inline text-2xl mx-3" />
         </h2>
@@ -36,7 +41,10 @@ const MobileNav: FC<MobileNavProps> = ({ className }) => {
           <IoPeopleOutline className="inline text-2xl mx-3" />
         </h2>
       </Link>
-      <a href="https://github.com/m3hransh/shwitter" className=" p-2 bg-background-900">
+      <a
+        href="https://github.com/m3hransh/shwitter"
+        className=" p-2 bg-background-900"
+      >
         <h2>
           <IoLogoGithub className="inline text-2xl text-main-50 mx-3" />
         </h2>

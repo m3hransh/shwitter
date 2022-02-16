@@ -11,6 +11,7 @@ import MobileSideBar from './MobileSideBar'
 import cn from 'classnames'
 import { IoPersonCircleOutline } from 'react-icons/io5'
 import { useAuth } from './Auth'
+import { useLocation } from 'react-router-dom'
 
 export interface LayoutProps {
   children?: ReactElement
@@ -23,12 +24,15 @@ const Layout: FC<LayoutProps> = ({ children }) => {
   const [modalIsOpen, setIsOpen] = useState(false)
   const [mobileOpen, setMobileOpen] = useState(false)
   const { user } = useAuth()
-
+  let location = useLocation()
   const openModal = () => setIsOpen(true)
   const closeModal = () => setIsOpen(false)
 
   return (
-    <div dir="rtl" className="bg-background-50 h-screen overflow-hidden dark:bg-background-900">
+    <div
+      dir="rtl"
+      className="bg-background-50 h-screen overflow-hidden dark:bg-background-900"
+    >
       <MobileSideBar
         mobileOpen={mobileOpen}
         setMobileOpen={setMobileOpen}
@@ -51,26 +55,28 @@ const Layout: FC<LayoutProps> = ({ children }) => {
         </Modal>
 
         <div className="grow relative sm:border-x dark:sm:border-background-600 flex flex-col overflow-hidden dark:text-main-50">
-          <div
-            onClick={() => setMobileOpen(true)}
-            className={cn(
-              'text-xl z-20 flex items-center gap-3  absolute top-0  w-full',
-              'dark:bg-background-800 backdrop-blur-md bg-opacity-50',
-              'bg-background-100 font-bold p-2 sm:p-4',
-            )}
-          >
-            {user.profile?.avatar ? (
-              <img
-                src={user.profile.avatar}
-                className="inline sm:hidden w-12 h-12 rounded-full"
-                alt="avatar"
-              />
-            ) : (
-              <IoPersonCircleOutline className="inline sm:hidden w-12 h-12 dark:text-main-50" />
-            )}
-            <div>{elements.title}</div>
-          </div>
-          <div className={cn('overflow-y-auto pt-14', '')}>
+          {location.pathname === '/' && (
+            <div
+              onClick={() => setMobileOpen(true)}
+              className={cn(
+                'text-xl z-20 flex items-center gap-3  absolute top-0  w-full',
+                'dark:bg-background-800 backdrop-blur-md bg-opacity-50',
+                'bg-background-100 font-bold p-2 sm:p-4',
+              )}
+            >
+              {user.profile?.avatar ? (
+                <img
+                  src={user.profile.avatar}
+                  className="inline sm:hidden w-12 h-12 rounded-full"
+                  alt="avatar"
+                />
+              ) : (
+                <IoPersonCircleOutline className="inline sm:hidden w-12 h-12 dark:text-main-50" />
+              )}
+              <div>{elements.title}</div>
+            </div>
+          )}
+          <div className={cn('overflow-y-auto', location.pathname ==='/'? 'pt-14': '')}>
             {/* Main Content*/}
             {children}
           </div>

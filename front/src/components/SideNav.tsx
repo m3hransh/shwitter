@@ -7,6 +7,7 @@ import {
 import { Link } from 'react-router-dom'
 import favicon from '../assets/shwitter-logo.png'
 import { translation } from '../lib/translation'
+import { useAuth } from './Auth'
 import Logout from './Logout'
 import Modal from './Modal'
 import Shweet from './Shweet'
@@ -14,6 +15,7 @@ import Shweet from './Shweet'
 
 const SideNav: FC = () => {
   const [modalIsOpen, setIsOpen] = useState(false)
+  const {user} = useAuth()
 
   const openModal = () => setIsOpen(true)
   const closeModal = () => setIsOpen(false)
@@ -27,13 +29,19 @@ const SideNav: FC = () => {
         <Link to="/users">
           <img src={favicon} alt="logo" className="w-12 h-12 mx-3" />
         </Link>
-        <Link to="/" className="rounded-3xl p-2 dark:hover:bg-background-600 hover:bg-background-100">
+        <Link
+          to="/"
+          className="rounded-3xl p-2 dark:hover:bg-background-600 hover:bg-background-100"
+        >
           <h2>
             <IoHomeOutline className="inline text-2xl mx-3" />
             <span className="hidden lg:inline-block">{content.home}</span>
           </h2>
         </Link>
-        <Link to="/profile" className="rounded-3xl p-2 hover:bg-background-100 dark:hover:bg-background-600">
+        <Link
+          to={`/${user.username}`}
+          className="rounded-3xl p-2 hover:bg-background-100 dark:hover:bg-background-600"
+        >
           <h2>
             <IoPersonOutline className="inline text-2xl mx-3" />
             <span className="hidden lg:inline-block">
@@ -63,7 +71,10 @@ const SideNav: FC = () => {
         {/*     <span className="hidden lg:inline-block">{content.more}</span> */}
         {/*   </h2> */}
         {/* </Link> */}
-        <Link to="/users" className="rounded-3xl p-2 dark:hover:bg-background-600 hover:bg-background-100">
+        <Link
+          to="/users"
+          className="rounded-3xl p-2 dark:hover:bg-background-600 hover:bg-background-100"
+        >
           <h2>
             <IoPeopleOutline className="inline text-2xl mx-3" />
             <span className="hidden lg:inline-block ">{content.more}</span>
