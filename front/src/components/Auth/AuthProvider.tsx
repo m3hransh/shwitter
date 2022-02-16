@@ -5,6 +5,7 @@ import { AuthContext, State, User, UserData } from './index'
 export interface AuthProviderProps {
   children?: ReactElement
 }
+const isDev = process.env.NODE_ENV === 'development'
 
 const SIGNUP_MUTATION = gql`
   mutation Signup($name: String!, $email: String!, $password: String!, $username: String!) {
@@ -117,6 +118,11 @@ const AuthProvider: FC<AuthProviderProps> = ({ children }) => {
       setUser(data.me)
       setState(meState)
     },
+    onError: (error) => {
+      if (isDev)
+        console.error(error)      
+      setState({called:true})
+    }
   })
 
   const getCurrentUser = async () => {
