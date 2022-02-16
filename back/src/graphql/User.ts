@@ -1,4 +1,11 @@
-import { extendType, inputObjectType, objectType } from 'nexus'
+import {
+  extendType,
+  inputObjectType,
+  intArg,
+  objectType,
+  stringArg,
+} from 'nexus'
+import { NexusGenAllTypes } from '../nexus-typegen'
 
 export const User = objectType({
   name: 'User',
@@ -52,6 +59,40 @@ export const UserInputType = inputObjectType({
 export const UserQuery = extendType({
   type: 'Query',
   definition(t) {
+    t.nonNull.field('user', {
+      type: 'User',
+      args: {
+        id: intArg(),
+        username: stringArg(),
+        email: stringArg(),
+      },
+      async resolve(_root, args, ctx, _info) {
+        let user: NexusGenAllTypes['User'] | null
+        if (args.id) {
+          user = await ctx.prisma.user.findUnique({
+            where: {
+              id: args.id,
+            },
+          })
+        } else if (args.username) {
+          user = await ctx.prisma.user.findUnique({
+            where: {
+              username: args.username,
+            },
+          })
+        } else if (args.email) {
+          user = await ctx.prisma.user.findUnique({
+            where: {
+              email: args.email,
+            },
+          })
+        } else {
+          throw Error('Please provide one of the arguments')
+        }
+        if (!user) throw Error('User not found')
+        return user
+      },
+    })
     t.nonNull.field('allUsers', {
       type: 'AllUsers',
       args: {
@@ -89,8 +130,7 @@ export const UserQuery = extendType({
       type: 'User',
       resolve(_root, _args, ctx) {
         const { userId } = ctx
-        if (!userId)
-          throw new Error('User has not sign in')
+        if (!userId) throw new Error('User has not sign in')
         return ctx.prisma.user.findUnique({
           where: {
             id: userId,

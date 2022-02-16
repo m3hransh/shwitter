@@ -156,6 +156,7 @@ export interface NexusGenFieldTypes {
     allUsers: NexusGenRootTypes['AllUsers']; // AllUsers!
     feed: NexusGenRootTypes['Feed']; // Feed!
     me: NexusGenRootTypes['User'] | null; // User
+    user: NexusGenRootTypes['User']; // User!
   }
   Shweet: { // field return type
     author: NexusGenRootTypes['User'] | null; // User
@@ -216,6 +217,7 @@ export interface NexusGenFieldTypeNames {
     allUsers: 'AllUsers'
     feed: 'Feed'
     me: 'User'
+    user: 'User'
   }
   Shweet: { // field return type name
     author: 'User'
@@ -272,6 +274,11 @@ export interface NexusGenArgTypes {
       orderBy?: NexusGenInputs['ShweetOrderByInput'][] | null; // [ShweetOrderByInput!]
       skip?: number | null; // Int
       take?: number | null; // Int
+    }
+    user: { // args
+      email?: string | null; // String
+      id?: number | null; // Int
+      username?: string | null; // String
     }
   }
 }

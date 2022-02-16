@@ -72,6 +72,7 @@ type Query {
   allUsers(data: FilterInputType): AllUsers!
   feed(filter: String, orderBy: [ShweetOrderByInput!], skip: Int, take: Int): Feed!
   me: User
+  user(email: String, id: Int, username: String): User!
 }
 
 type Shweet {
