@@ -32,7 +32,7 @@
   "scripts": {
     "start": "react-scripts start",
     "build": "react-scripts build",
-    "test": "react-scripts test",
+    "test": "cypress open",
     "eject": "react-scripts eject"
   },
   "eslintConfig": {
@@ -55,9 +55,11 @@
   },
   "devDependencies": {
     "@fsouza/prettierd": "^0.18.1",
+    "@testing-library/cypress": "^8.0.2",
     "@typescript-eslint/eslint-plugin": "^5.9.0",
     "@typescript-eslint/parser": "^5.9.0",
     "autoprefixer": "^10.4.2",
+    "cypress": "^9.5.1",
     "eslint": "^8.6.0",
     "eslint-config-react-app": "^7.0.0",
     "eslint_d": "^11.1.1",
