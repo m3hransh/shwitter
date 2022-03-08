@@ -76,6 +76,9 @@ const AuthProvider: FC<AuthProviderProps> = ({ children }) => {
     useMutation<{ signup: AuthPayload }>(SIGNUP_MUTATION)
 
   const signup = async (newUser: Omit<User, 'id'>) => {
+    // clear the localStorage first to avoid invalid request
+    localStorage.removeItem('token')
+
     const { data, errors } = await signupMutate({
       variables: newUser,
     })
@@ -97,6 +100,9 @@ const AuthProvider: FC<AuthProviderProps> = ({ children }) => {
     useMutation<{ login: AuthPayload }>(LOGIN_MUTATION)
 
   const login = async (newUser: Omit<User, 'id' | 'username'>) => {
+    // clear the localStorage first to avoid invalid request
+    localStorage.removeItem('token')
+
     const { data, errors } = await loginMutate({
       variables: newUser,
     })

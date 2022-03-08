@@ -5,7 +5,7 @@ describe('example to-do app', () => {
     cy.visit('http://localhost:3000')
   })
 
-  it('Sign in', () => {
+  it('Log in', () => {
     // TODO: Need to read figure out the language
     const lang = 'ir'
 
@@ -16,7 +16,8 @@ describe('example to-do app', () => {
     const login = new RegExp(form.login, 'i')
     cy.findByRole('link', {  name: login}).click()
 
-
+    // Add a invalid token
+    localStorage.setItem('token', 'randomkeysdfsdfdf')
     // Enter a email address which is registered
     const email = new RegExp(form.email, 'i')
     cy.findByPlaceholderText(email).type('mehran@gmail.com')
@@ -26,7 +27,10 @@ describe('example to-do app', () => {
     cy.findByPlaceholderText(password).type('mehran123')
 
     // Login into home page
-    cy.findByRole('button', {  name: login}).click()
+    cy.findByRole('button', {  name: login}).click().should(() =>{
+      expect(localStorage.getItem('token')).to.exist
+    })
+
     
     // Asserting that we in home page
     cy.url().should('eq', 'http://localhost:3000/')
